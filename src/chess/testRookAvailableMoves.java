@@ -161,14 +161,6 @@ public class testRookAvailableMoves {
 			ret[testRook.y][i] = 1;
 		}
 		ret[testRook.y][testRook.x] = -1;
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				System.out.print(ret[j][i] + " ");
-			}
-			System.out.print("\n");
-		}
-		System.out.print("\n");
-		System.out.print("\n");
 		return ret;
 	}
 }

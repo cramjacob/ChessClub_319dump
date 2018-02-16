@@ -69,15 +69,6 @@ public class Rook extends Piece {
 				flag = true;
 			} 
 		}
-
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				System.out.print(legalMoves[j][i] + " ");
-			}
-			System.out.print("\n");
-		}
-		System.out.print("\n");
-		System.out.print("\n");
 		return legalMoves;
 	}
 
