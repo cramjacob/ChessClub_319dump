@@ -7,6 +7,5 @@ public class Main {
 		classicalBoard.printBoard();
 		System.out.print("------------------\n");
 		chess960Board.printBoard();
-
 	}
 }
