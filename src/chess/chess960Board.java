@@ -154,4 +154,8 @@ public class chess960Board {
 		}
 		return availablePieces;
 	}
+	
+	public Tile[][] getBoard(){
+		return this.board;
+	}
 }
