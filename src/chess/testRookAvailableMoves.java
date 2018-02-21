@@ -21,9 +21,14 @@ public class testRookAvailableMoves {
 		testBoard[testRook.y][testRook.x].isOccupied = true;
 		testBoard[testRook.y][testRook.x].piece = testRook;
 		int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 },
-				{ 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 }, { 1, 1, -1, 1, 1, 1, 1, 1 },
-				{ 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 } };
+		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 },
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 1, 1, -1, 1, 1, 1, 1, 1 },
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 } };
 		if (legalMoves.length != expectedMoves.length) {
 			fail("legalMoves and expectedMoves arrays are not the same size");
 		}
@@ -49,9 +54,14 @@ public class testRookAvailableMoves {
 		testBoard[testPawn.y][testPawn.x].piece = testPawn;
 
 		int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 },
-				{ 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 }, { 1, 1, -1, 1, 1, 1, 0, 0 },
-				{ 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 } };
+		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 },
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 1, 1, -1, 1, 1, 1, 0, 0 },
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 } };
 		if (legalMoves.length != expectedMoves.length) {
 			fail("legalMoves and expectedMoves arrays are not the same size");
 		}
@@ -85,9 +95,14 @@ public class testRookAvailableMoves {
 
 		// get legalMoves and create expectedMoves
 		int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 }, { 1, 1, -1, 1, 1, 1, 0, 0 },
-				{ 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0 } };
+		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 0, 0, 0, 0, 0, 0 },
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 1, 1, -1, 1, 1, 1, 0, 0 },
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
+											  { 0, 0, 1, 0, 0, 0, 0, 0 } };
 		if (legalMoves.length != expectedMoves.length) {
 			fail("legalMoves and expectedMoves arrays are not the same size");
 		}
