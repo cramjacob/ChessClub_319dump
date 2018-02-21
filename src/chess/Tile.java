@@ -1,6 +1,8 @@
 package chess;
 
-public class Tile {
+import javax.swing.JPanel;
+
+public class Tile extends JPanel{
 	public int x;
 	public int y;
 	public boolean isOccupied;
@@ -11,5 +13,6 @@ public class Tile {
 		this.y = y;
 		this.isOccupied = isOccupied;
 		this.piece = piece;
+	
 	}
 }
