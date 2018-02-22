@@ -2,8 +2,8 @@ package chess;
 
 public class Knight extends Piece{
 	
-	public Knight(int x, int y, String color, String identifier) {
-		super(x, y, color, identifier);
+	public Knight(int row, int col, String color, PieceType identifier) {
+		super(row, col, color, identifier);
 	}
 
 	public Tile[][] getAvailableMoves(int x, int y, Tile[][] board) {
@@ -42,7 +42,7 @@ public class Knight extends Piece{
 		if(((x - 2) >= 0) && ((y - 1) >= 0)){
 			legalMoves[y-1][x-2].color = "RED";
 		}
-		return legalMoves;
+		return board[0];
 	}
 		
 }
