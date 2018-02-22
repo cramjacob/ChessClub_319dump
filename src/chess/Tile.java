@@ -12,6 +12,7 @@ public class Tile extends JPanel {
 	public int col;
 	public boolean isOccupied;
 	public Piece piece;
+	public String color;
 	
 	public Tile(int row, int col, boolean isOccupied, Piece piece) {
 		this.row = row;

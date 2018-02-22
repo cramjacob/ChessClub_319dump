@@ -121,4 +121,8 @@ public class chess960Board extends Board {
 		}
 		return availablePieces;
 	}
+	
+	public Tile[][] getBoard(){
+		return this.board;
+	}
 }

@@ -1,6 +1,8 @@
 package chess;
 
 public class Pawn extends Piece{
+	
+	protected boolean hasMoved = false;
 
 	public Pawn(int row, int col, String color, PieceType identifier) {
 		super(row, col, color, identifier);
