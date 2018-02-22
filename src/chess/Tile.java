@@ -5,6 +5,7 @@ public class Tile {
 	public int y;
 	public boolean isOccupied;
 	public Piece piece;
+	public String color;
 	
 	public Tile(int x, int y, boolean isOccupied, Piece piece) {
 		this.x = x;
