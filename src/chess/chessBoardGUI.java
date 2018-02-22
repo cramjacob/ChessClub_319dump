@@ -1,26 +1,26 @@
 package chess;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-public class chessBoardGUI {
+public class chessBoardGUI implements MouseListener {
 	
 	private final JFrame chessFrame;
 	private JPanel chessPanel;
-	private ArrayList <Tile> boardTiles;
-	private static Dimension boardDimensions = new Dimension(600,600); 
-	private static Dimension panelDimensions = new Dimension(600,600); 
-    //private final Color lightTileColor = Color.decode("#FFFACD");
-    //private final Color darkTileColor = Color.decode("#593E1A");
+	private static Dimension boardDimensions = new Dimension(600,600);
     private final Color lightTileColor = Color.decode("#efd0a7");
     private final Color darkTileColor = Color.decode("#bf7007");
+    private final Color testColor = Color.CYAN;
+    private DrawCircle circle = new DrawCircle();
+    private Board board;
+    private String player;
+    private Tile selected;
     
-
-    
-	public chessBoardGUI() {
-		
+	public chessBoardGUI(Board board) {
+		this.board = board;
 		this.chessFrame = new JFrame("Chess");
 		this.chessFrame.setSize(boardDimensions);
 		
@@ -29,80 +29,120 @@ public class chessBoardGUI {
 		this.chessFrame.setJMenuBar(menuBar);
 		
 		setUpPanel();
+		this.player = "White";
 		
-		//this.chessPanel.setBackground(Color.BLACK);
 		this.chessFrame.add(chessPanel);
 		this.chessPanel.setVisible(true);
 		this.chessFrame.setVisible(true);
 		this.chessFrame.repaint();
-		
-		
 	}
 
 	private void setUpPanel() {
-
-		chessPanel = new JPanel(new GridLayout(8,8));
-		this.boardTiles =  new ArrayList<>();
+		this.chessPanel = new JPanel(new GridLayout(8,8));
+		Tile[][] board = this.board.board;
 		
-		for(int i = 0; i < 64; i++) {
-			Tile currTile = new Tile(10,10,false, null);
-			this.boardTiles.add(currTile);
-
-			if(i < 8 || (i <24 && i >= 16) ||(i < 40 && i >= 32) || (i < 56 && i >= 48)) {
-				if(i%2 == 0) {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				Tile currTile = board[row][col];
+				currTile.addMouseListener(this);
 				
-				 currTile.setBackground(lightTileColor);
-				}
-				else {
-				 currTile.setBackground(darkTileColor);
-
-				}
-			}
-			
-			else{
-				if(i%2 == 0) {
+				boolean dark = false;
+				dark = col % 2 == 0;
+				if (row % 2 == 0) dark = !dark;
 				
-				 currTile.setBackground(darkTileColor);
-				}
-				else {
-				 currTile.setBackground(lightTileColor);
-
-				}
+				currTile.setBackground(dark ? darkTileColor : lightTileColor);
+				setImage(currTile);
+				currTile.setVisible(true);
+				this.chessPanel.add(currTile);
 			}
-			
-			//currTile.setBackground(Color.BLACK);
-			currTile.setVisible(true);
-			this.chessPanel.add(currTile);
-			
-			
 		}
-		
+	}
+	
+	private void tryMove(Tile tile) {
+		Tile[] moves = this.selected.piece.getAvailableMoves(this.selected.row, this.selected.col, this.board.board);
+	}
+	
+	private void showAvailableMoves(Tile tile) {
+		Tile[] moves = tile.piece.getAvailableMoves(tile.row, tile.col, this.board.board);
+		for (int i = 0; i < moves.length; i++) {
+			if (moves[i] != null) {
+				if (moves[i].getComponentCount() == 0) {
+					moves[i].add(new JLabel(this.circle));
+				} else {
+					moves[i].remove(0);
+				}
+			}
+		}
+	}
+	
+	private void setImage(Tile tile) {
+		if (tile.isOccupied) {
+			Image dimg = tile.piece.img.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			tile.add(new JLabel(imageIcon));
+		} else {
+			tile.removeAll();
+		}
 	}
 
 	private void populateMenuBar(JMenuBar menuBar) {
 		menuBar.add(createFileMenu());
 		menuBar.add(createOptionsMenu());
 		menuBar.add(createPlayerTurnMenu());
-
-
 	}
 
 	private JMenu createFileMenu() {
-		JMenu fileMenu = new JMenu("File");
-		
-		return fileMenu;
+		return new JMenu("File");
 	}
 	
 	private JMenu createOptionsMenu() {
-		JMenu fileMenu = new JMenu("Options");
-		
-		return fileMenu;
+		return new JMenu("Options");
 	}
 	
 	private JMenu createPlayerTurnMenu() {
-		JMenu fileMenu = new JMenu("Player Turn");
+		return new JMenu("Player Turn");
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Tile tile = (Tile) e.getComponent();
+		if (this.selected == null) {
+			if (tile.isOccupied && tile.piece.color == this.player) {
+				this.selected = tile;
+				tile.setBorder(BorderFactory.createBevelBorder(0, Color.green, Color.GREEN));
+				showAvailableMoves(tile);
+			}
+		} else if (this.selected == tile) {
+			this.selected = null;
+			tile.setBorder(null);
+			showAvailableMoves(tile);
+		} else {
+			tryMove(tile);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
-		return fileMenu;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
