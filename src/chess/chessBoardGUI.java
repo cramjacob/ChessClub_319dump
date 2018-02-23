@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class chessBoardGUI implements MouseListener {
 	
@@ -13,11 +14,13 @@ public class chessBoardGUI implements MouseListener {
 	private static Dimension boardDimensions = new Dimension(600,600);
     private final Color lightTileColor = Color.decode("#efd0a7");
     private final Color darkTileColor = Color.decode("#bf7007");
-    private final Color testColor = Color.CYAN;
-    private DrawCircle circle = new DrawCircle();
+    private Border selectedBorder = BorderFactory.createBevelBorder(0, Color.green, Color.GREEN);
+    private Border availableBorder = BorderFactory.createBevelBorder(0, Color.white, Color.white);
     private Board board;
-    private String player;
     private Tile selected;
+    private String player;
+    private Tile[] available;
+    
     
 	public chessBoardGUI(Board board) {
 		this.board = board;
@@ -29,6 +32,7 @@ public class chessBoardGUI implements MouseListener {
 		this.chessFrame.setJMenuBar(menuBar);
 		
 		setUpPanel();
+		
 		this.player = "White";
 		
 		this.chessFrame.add(chessPanel);
@@ -59,17 +63,30 @@ public class chessBoardGUI implements MouseListener {
 	}
 	
 	private void tryMove(Tile tile) {
-		Tile[] moves = this.selected.piece.getAvailableMoves(this.selected.row, this.selected.col, this.board.board);
+		if (tile.getBorder() == availableBorder) {
+			this.selected.moveTo(tile);
+			for (int i = 0; i < this.available.length; i++) {
+				if (this.available[i] != null) {
+					this.available[i].setBorder(null);
+				}
+			}
+			this.available = new Tile[8];
+			this.selected = null;
+			this.player = this.player == "White" ? "Black" : "White";
+		}
 	}
 	
 	private void showAvailableMoves(Tile tile) {
-		Tile[] moves = tile.piece.getAvailableMoves(tile.row, tile.col, this.board.board);
-		for (int i = 0; i < moves.length; i++) {
-			if (moves[i] != null) {
-				if (moves[i].getComponentCount() == 0) {
-					moves[i].add(new JLabel(this.circle));
+		this.available = tile.piece.getAvailableMoves(tile.row, tile.col, this.board.board);
+		for (int i = 0; i < this.available.length; i++) {
+			if (this.available[i] != null) {
+				if (this.available[i].getBorder() == null) {
+					if (this.available[i].piece != null) {
+						System.out.println("x: " + this.available[i].row + ", col: " + this.available[i].col);
+					}
+					this.available[i].setBorder(this.availableBorder);
 				} else {
-					moves[i].remove(0);
+					this.available[i].setBorder(null);
 				}
 			}
 		}
@@ -86,21 +103,9 @@ public class chessBoardGUI implements MouseListener {
 	}
 
 	private void populateMenuBar(JMenuBar menuBar) {
-		menuBar.add(createFileMenu());
-		menuBar.add(createOptionsMenu());
-		menuBar.add(createPlayerTurnMenu());
-	}
-
-	private JMenu createFileMenu() {
-		return new JMenu("File");
-	}
-	
-	private JMenu createOptionsMenu() {
-		return new JMenu("Options");
-	}
-	
-	private JMenu createPlayerTurnMenu() {
-		return new JMenu("Player Turn");
+		menuBar.add(new JMenu("File"));
+		menuBar.add(new JMenu("Options"));
+		menuBar.add(new JMenu("Player Turn"));
 	}
 
 	@Override
@@ -109,7 +114,7 @@ public class chessBoardGUI implements MouseListener {
 		if (this.selected == null) {
 			if (tile.isOccupied && tile.piece.color == this.player) {
 				this.selected = tile;
-				tile.setBorder(BorderFactory.createBevelBorder(0, Color.green, Color.GREEN));
+				tile.setBorder(selectedBorder);
 				showAvailableMoves(tile);
 			}
 		} else if (this.selected == tile) {
