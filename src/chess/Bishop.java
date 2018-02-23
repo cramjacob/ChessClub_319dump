@@ -7,7 +7,7 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public int[][] getAvailableMoves(int x, int y, Tile[][] board) {
+	public Tile[] getAvailableMoves(Tile[][] board) {
 		int[][] legalMoves = new int[8][8];
 		boolean flag = false; // this bool represents if we have ran into a
 								// piece yet or not
@@ -19,10 +19,10 @@ public class Bishop extends Piece {
 			}
 		}
 
-		legalMoves[y][x] = -1;
+		legalMoves[row][col] = -1;
 
-		int i = y - 1;
-		int j = x - 1;
+		int i = row - 1;
+		int j = col - 1;
 		// Check up diagonal left on the file
 		while (i >= 0 && j >= 0) {
 			if (board[i][j].isOccupied == false && !flag) {
@@ -39,8 +39,8 @@ public class Bishop extends Piece {
 			j -= 1;
 		}
 
-		i = y - 1;
-		j = x + 1;
+		i = row - 1;
+		j = col + 1;
 		// Check up diagonal right on the file
 		while (i >= 0 && j < 8) {
 			if (board[i][j].isOccupied == false && !flag) {
@@ -57,8 +57,8 @@ public class Bishop extends Piece {
 			j += 1;
 		}
 
-		i = y + 1;
-		j = x - 1;
+		i = row + 1;
+		j = col - 1;
 		// Check down diagonal left on the file
 		while (i < 8 && j >= 0) {
 			if (board[i][j].isOccupied == false && !flag) {
@@ -75,8 +75,8 @@ public class Bishop extends Piece {
 			j -= 1;
 		}
 
-		i = y + 1;
-		j = x + 1;
+		i = row + 1;
+		j = col + 1;
 		// Check down diagonal right on the file
 		while (i < 8 && j < 8) {
 			if (board[i][j].isOccupied == false && !flag) {
@@ -92,7 +92,7 @@ public class Bishop extends Piece {
 			i += 1;
 			j += 1;
 		}
-		return legalMoves;
+		return board[0];
 	}
 
 }

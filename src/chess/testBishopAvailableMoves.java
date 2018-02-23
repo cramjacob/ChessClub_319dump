@@ -17,7 +17,7 @@ public class testBishopAvailableMoves {
 			}
 		}
 
-		Bishop testBishop = new Bishop(2, 4, "White", "B"); // second rank,
+		Bishop testBishop = new Bishop(2, 4, "White", PieceType.Bishop); // second rank,
 															// fourth file
 		testBoard[testBishop.y][testBishop.x].isOccupied = true;
 		testBoard[testBishop.y][testBishop.x].piece = testBishop;

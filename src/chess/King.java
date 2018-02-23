@@ -7,7 +7,7 @@ public class King extends Piece {
 	}
 
 	@Override
-	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
+	public Tile[] getAvailableMoves(Tile[][] board) {
 		// TODO Auto-generated method stub
 		return null;
 	}
