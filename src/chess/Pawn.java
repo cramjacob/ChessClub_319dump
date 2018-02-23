@@ -2,7 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 
-public class Pawn extends Piece{
+public class Pawn extends Piece {
 	
 	protected boolean hasMoved = false;
 
@@ -12,7 +12,6 @@ public class Pawn extends Piece{
 
 	@Override
 	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
-		// TODO Auto-generated method stub
 		ArrayList<Tile> available = new ArrayList<Tile>();
 		for (int bRow = 0; bRow < 8; bRow++) {
 			for (int bCol = 0; bCol < 8; bCol++) {
@@ -21,7 +20,9 @@ public class Pawn extends Piece{
 					if (!hasMoved && (bRow == row - 2 || bRow == row + 2)) {
 						available.add(board[bRow][bCol]);
 					} else if (bRow == row - 1 || bRow == row + 1) {
-						available.add(board[bRow][bCol]);
+						if (!board[bRow][bCol].isOccupied) {
+							available.add(board[bRow][bCol]);
+						}
 					}
 				} else if (bCol == col + 1 || bCol == col - 1) {
 					if (bRow == row - 1 || bRow == row + 1) {

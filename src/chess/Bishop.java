@@ -7,7 +7,7 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public int[][] getAvailableMoves(int x, int y, Tile[][] board) {
+	public Tile[] getAvailableMoves(int x, int y, Tile[][] board) {
 		int[][] legalMoves = new int[8][8];
 		boolean flag = false; // this bool represents if we have ran into a
 								// piece yet or not
@@ -92,7 +92,7 @@ public class Bishop extends Piece {
 			i += 1;
 			j += 1;
 		}
-		return legalMoves;
+		return board[0];
 	}
 
 }
