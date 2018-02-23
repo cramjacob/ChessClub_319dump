@@ -42,7 +42,13 @@ public class Knight extends Piece{
 		if(((x - 2) >= 0) && ((y - 1) >= 0)){
 			legalMoves[y-1][x-2].color = "RED";
 		}
-		return board[0];
+		return board;
+	}
+
+	@Override
+	public Tile[] getAvailableMoves(Tile[][] board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 }

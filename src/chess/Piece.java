@@ -22,7 +22,7 @@ public abstract class Piece {
 	}
 	
 	void setImage(String color, PieceType identifier) {
-		String url = "/Users/leximarie/Desktop/319/B6/assets/";
+		String url = "C:\\Users\\Sean\\Documents\\B6\\B6\\assets\\";
 		url += identifier.name().toLowerCase() + "-" + color.toLowerCase() + ".png";
 		BufferedImage img = null;
 		try {
@@ -34,5 +34,5 @@ public abstract class Piece {
 	}
 
 	
-	public abstract Tile[] getAvailableMoves(int x, int y, Tile[][] board);
+	public abstract Tile[] getAvailableMoves(Tile[][] board);
 }

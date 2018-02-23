@@ -28,12 +28,6 @@ public class classicalChessBoard extends Board {
 		}
 		return;
 	}
-	
-	public Tile[][] getBoard(){
-		return this.board;
-	}
-	
-	
 	/*
 	 * Helper method for reducing duplicate code in initClassical()
 	 * Sets up the back rank given the file and color in standard position

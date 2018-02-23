@@ -59,11 +59,11 @@ public class chessBoardGUI implements MouseListener {
 	}
 	
 	private void tryMove(Tile tile) {
-		Tile[] moves = this.selected.piece.getAvailableMoves(this.selected.row, this.selected.col, this.board.board);
+		Tile[] moves = this.selected.piece.getAvailableMoves(this.board.board);
 	}
 	
 	private void showAvailableMoves(Tile tile) {
-		Tile[] moves = tile.piece.getAvailableMoves(tile.row, tile.col, this.board.board);
+		Tile[] moves = tile.piece.getAvailableMoves(this.board.board);
 		for (int i = 0; i < moves.length; i++) {
 			if (moves[i] != null) {
 				if (moves[i].getComponentCount() == 0) {

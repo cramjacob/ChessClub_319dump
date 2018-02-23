@@ -2,162 +2,110 @@ package chess;
 
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 public class testRookAvailableMoves {
-
+	/*
+	 * This test will place a rook on an empty board at 
+	 * position col:2 row:3 and get available moves then test them
+	 */
 	@Test
-	public void testInit() {
+	public void testOpenRook() {
+		
+		/*
+		 * This initializes an 8x8 board to empty tiles
+		 */
 		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
+		for (int col = 0; col < 8; col++) {
+			for (int row = 0; row < 8; row++) {
+				Tile t = new Tile(row, col, false, null);
+				testBoard[col][row] = t;
 			}
 		}
-
-		Rook testRook = new Rook(2, 4, "White", "R"); // second rank, fourth file
-		testBoard[testRook.y][testRook.x].isOccupied = true;
-		testBoard[testRook.y][testRook.x].piece = testRook;
-		int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 },
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 1, 1, -1, 1, 1, 1, 1, 1 },
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 } };
-		if (legalMoves.length != expectedMoves.length) {
-			fail("legalMoves and expectedMoves arrays are not the same size");
-		}
-		assertArrayEquals(legalMoves, expectedMoves);
+		Rook testRook = new Rook(2, 1, "White", PieceType.Rook);
+		testBoard[2][1] = new Tile(2, 1, true, testRook);
+		
+		Tile[] rookMoves = testRook.getAvailableMoves(testBoard);
+		Tile[] rookMovesExpected = getExpectedMoves(testRook);
+		System.out.println("rme " + rookMovesExpected.length);
+		System.out.println("rm " + rookMoves.length);
+		assertArrayEquals(rookMovesExpected, rookMoves);
 	}
-
-	@Test
-	public void testPawn() {
-		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
+	
+	private Tile[] getExpectedMoves(Rook testRook) {
+		ArrayList<Tile> list = new ArrayList<Tile>();
+		
+		for (int col = 0; col < 8; col++) {
+			for (int row = 0; row < 8; row++) {
+				if (col == testRook.col) {
+					if (row == testRook.row) {
+						// do nothing
+					} else {
+						list.add(new Tile(row, col, false, null));
+					}
+				}
+				if (row == testRook.row) {
+					if (col == testRook.col) {
+						// do nothing
+					} else {
+						list.add(new Tile(row, col, false, null));
+					}
+				}
 			}
 		}
-
-		Rook testRook = new Rook(2, 4, "White", "R"); // second file, fourth rank
-		testBoard[testRook.y][testRook.x].isOccupied = true;
-		testBoard[testRook.y][testRook.x].piece = testRook;
-
-		Pawn testPawn = new Pawn(5, 4, "White", "p"); // fifth file, fourth rank
-		testBoard[testPawn.y][testPawn.x].isOccupied = true;
-		testBoard[testPawn.y][testPawn.x].piece = testPawn;
-
-		int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 },
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 1, 1, -1, 1, 1, 1, 0, 0 },
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 } };
-		if (legalMoves.length != expectedMoves.length) {
-			fail("legalMoves and expectedMoves arrays are not the same size");
-		}
-		assertArrayEquals(legalMoves, expectedMoves);
-	}
-
-	@Test
-	public void testPawnAndBihsop() {
-		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
-			}
-		}
-
-		// Create test rook
-		Rook testRook = new Rook(2, 4, "White", "R"); // second file, fourth rank
-		testBoard[testRook.y][testRook.x].isOccupied = true;
-		testBoard[testRook.y][testRook.x].piece = testRook;
-
-		// Create test pawn
-		Pawn testPawn = new Pawn(5, 4, "White", "p"); // fifth file, fourth rank
-		testBoard[testPawn.y][testPawn.x].isOccupied = true;
-		testBoard[testPawn.y][testPawn.x].piece = testPawn;
-
-		// Create test bishop
-		Bishop testBishop = new Bishop(2, 2, "White", "B"); // second file, second rank
-		testBoard[testBishop.y][testBishop.x].isOccupied = true;
-		testBoard[testBishop.y][testBishop.x].piece = testPawn;
-
-		// get legalMoves and create expectedMoves
-		int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 0, 0, 0, 0, 0, 0 },
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 1, 1, -1, 1, 1, 1, 0, 0 },
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 0, 0 } };
-		if (legalMoves.length != expectedMoves.length) {
-			fail("legalMoves and expectedMoves arrays are not the same size");
-		}
-		assertArrayEquals(legalMoves, expectedMoves);
+		Tile[] ret = new Tile[list.size()];
+		ret = list.toArray(ret);
+		return ret;
 	}
 
 	/*
-	 * This test is going to place a rook at every possible spot on an empty board
-	 * and then generate a legalMoves array, and will verify that with what we would
-	 * expect from that rook position on an empty board
+	 * This test will create a new classical board, initialize it to 
+	 * it's standard position, and then assign a Tile[][] array to the classical board
+	 * 
+	 * For the Rooks in a starting classical game, we would expect them to
+	 * have no legal moves to make, since they are trapped in by their own pieces. 
+	 * This test checks to ensure that they all return the correct getAvailableMoves()
+	 * when there are no available moves to make.
 	 */
 	@Test
-	public void testLiterallyAllPossibleCombinationsOfRookOnEmptyBoard() {
-		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
-			}
-		}
-
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Rook testRook = new Rook(j, i, "White", "R");
-				Tile t = new Tile(j, i, true, testRook);
-				testBoard[j][i] = t;
-				System.out.println("y: " + testRook.y + ", x: " + testRook.x);
-				int[][] legalMoves = testRook.getAvailableMoves(testRook.x, testRook.y, testBoard);
-				int[][] expectedMoves = getExpectedMoves(testRook);
-
-				if (legalMoves.length != expectedMoves.length) {
-					fail("legalMoves and expectedMoves arrays are not the same size");
-				}
-				assertArrayEquals(legalMoves, expectedMoves);
-
-				Tile empty = new Tile(j, i, false, null);
-				testBoard[j][i] = empty;
-			}
-		}
-
-	}
-
-	private int[][] getExpectedMoves(Rook testRook) {
-		int[][] ret = new int[8][8];
-		for (int j = 0; j < 8; j++) {
-			for (int k = 0; k < 8; k++) {
-				ret[j][k] = 0;
-			}
-		}
-
-		for (int i = 0; i < 8; i++) {
-			ret[i][testRook.x] = 1;
-			ret[testRook.y][i] = 1;
-		}
-		ret[testRook.y][testRook.x] = -1;
-		return ret;
+	public void testInit() {
+		
+		classicalChessBoard board = new classicalChessBoard();
+		board.initBoard();
+		Tile[][] testBoard = board.getBoard();
+		/*
+		 * Get each rook (2 for white side, 2 for black side)
+		 */
+		Piece whiteRook1 = testBoard[7][0].piece;
+		Piece whiteRook2 = testBoard[7][7].piece;
+		Piece blackRook1 = testBoard[0][0].piece;
+		Piece blackRook2 = testBoard[0][7].piece;
+		
+		/*
+		 * Get the available moves from each rook
+		 */
+		Tile[] whiteRook1Moves = whiteRook1.getAvailableMoves(testBoard);
+		Tile[] whiteRook2Moves = whiteRook2.getAvailableMoves(testBoard);
+		Tile[] blackRook1Moves = blackRook1.getAvailableMoves(testBoard);
+		Tile[] blackRook2Moves = blackRook2.getAvailableMoves(testBoard);
+		
+		/*
+		 * These are all empty, as if there are no available moves, getLegalMoves() 
+		 * has no objects to return, thus returns empty Tile array.
+		 */
+		Tile[] whiteRook1ExpectedMoves = new Tile[0];
+		Tile[] whiteRook2ExpectedMoves = new Tile[0];
+		Tile[] blackRook1ExpectedMoves = new Tile[0];
+		Tile[] blackRook2ExpectedMoves = new Tile[0];
+		
+		/*
+		 * Test equality
+		 */
+		assertArrayEquals(whiteRook1ExpectedMoves, whiteRook1Moves);
+		assertArrayEquals(whiteRook2ExpectedMoves, whiteRook2Moves);
+		assertArrayEquals(blackRook1ExpectedMoves, blackRook1Moves);
+		assertArrayEquals(blackRook2ExpectedMoves, blackRook2Moves);
 	}
 }
