@@ -15,9 +15,10 @@ public class King extends Piece {
 			for (int bCol = 0; bCol < 8; bCol++) {
 				if ((bRow == row - 1 && bCol == col) || (bRow == row + 1 && bCol == col)
 						|| (bRow == row && bCol == col - 1) || (bRow == row && bCol == col + 1)
-						|| (bRow == row - 1 && bCol == col - 1) || (bRow == row + 1 && bCol == col + 1)) {
-					available[i] = board[bRow][bCol];
-					i++;
+						|| (bRow == row - 1 && bCol == col - 1) || (bRow == row + 1 && bCol == col + 1)
+						|| (bRow == row - 1 && bCol == col + 1) || (bRow == row + 1 && bCol == col - 1)) {
+							available[i] = board[bRow][bCol];
+							i++;
 				}
 			}
 		}
