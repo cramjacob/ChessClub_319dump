@@ -18,7 +18,7 @@ public class chessBoardGUI implements MouseListener {
     private Border availableBorder = BorderFactory.createBevelBorder(0, Color.white, Color.white);
     private Board board;
     private Tile selected;
-    private String player;
+    private Player player;
     private Tile[] available;
     
     
@@ -33,7 +33,7 @@ public class chessBoardGUI implements MouseListener {
 		
 		setUpPanel();
 		
-		this.player = "White";
+		this.player = Player.White;
 		
 		this.chessFrame.add(chessPanel);
 		this.chessPanel.setVisible(true);
@@ -72,7 +72,7 @@ public class chessBoardGUI implements MouseListener {
 			}
 			this.available = new Tile[8];
 			this.selected = null;
-			this.player = this.player == "White" ? "Black" : "White";
+			this.player = this.player == Player.White ? Player.Black : Player.White;
 		}
 	}
 	

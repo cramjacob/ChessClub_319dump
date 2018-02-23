@@ -50,9 +50,9 @@ public class chess960Board extends Board {
 		} while (!isValid(backRank));
 
 		for (int j = 0; j < backRank.length; j++) {
-			backRank[j].x = j;
+			backRank[j].col = j;
 			board[i][j] = new Tile(i, j, true, backRank[j]);
-			backRank[j].y = i + 7;
+			backRank[j].row = i + 7;
 			board[i + 7 ][j] = new Tile(i + 7, j, true, backRank[j]);
 		}
 	}

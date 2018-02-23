@@ -6,7 +6,7 @@ public class Pawn extends Piece {
 	
 	protected boolean hasMoved = false;
 
-	public Pawn(int row, int col, String color, PieceType identifier) {
+	public Pawn(int row, int col, Player color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 
@@ -19,7 +19,11 @@ public class Pawn extends Piece {
 					// first move
 					if (!hasMoved && (bRow == row - 2 || bRow == row + 2)) {
 						available.add(board[bRow][bCol]);
-					} else if (bRow == row - 1 || bRow == row + 1) {
+					} else if (bRow == row - 1 && this.color == Player.White) {
+						if (!board[bRow][bCol].isOccupied) {
+							available.add(board[bRow][bCol]);
+						}
+					} else if (bRow == row + 1 && this.color == Player.Black) {
 						if (!board[bRow][bCol].isOccupied) {
 							available.add(board[bRow][bCol]);
 						}
