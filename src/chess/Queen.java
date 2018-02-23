@@ -2,8 +2,8 @@ package chess;
 
 public class Queen extends Piece {
 
-	public Queen(int x, int y, String color, String identifier) {
-		super(x, y, color, identifier);
+	public Queen(int row, int col, String color, PieceType identifier) {
+		super(row, col, color, identifier);
 	}
 
 	@Override

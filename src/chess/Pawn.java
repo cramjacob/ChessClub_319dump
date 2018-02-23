@@ -4,22 +4,23 @@ public class Pawn extends Piece{
 	
 	protected boolean hasMoved = false;
 
-	public Pawn(int x, int y, String color, String identifier) {
-		super(x, y, color, identifier);
+	public Pawn(int row, int col, String color, PieceType identifier) {
+		super(row, col, color, identifier);
 	}
 
 	@Override
-	public int[][] getAvailableMoves(int x, int y, Tile[][] board) {
-		int[][] legalMoves = new int[8][8];
-		
-		if(!hasMoved){
-			legalMoves[y + 2][x] = 1;
-			hasMoved = true;
+	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
+		// TODO Auto-generated method stub
+		Tile[] available = new Tile[32];
+		int i = 0;
+		for (int bRow = 0; bRow < 8; bRow++) {
+			for (int bCol = 0; bCol < 8; bCol++) {
+				if ((bRow == row - 2 || bRow == row - 1) && bCol == col) {
+					available[i] = board[bRow][bCol];
+					i++;
+				}
+			}
 		}
-		else if(y < 8){
-			legalMoves[y + 1][x] = 1;
-		}
-		
-		return legalMoves;
+		return available;
 	}
 }
