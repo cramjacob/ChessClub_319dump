@@ -2,7 +2,7 @@ package chess;
 
 public class King extends Piece {
 
-	public King(int row, int col, String color, PieceType identifier) {
+	public King(int row, int col, Player color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 

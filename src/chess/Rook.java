@@ -7,7 +7,7 @@ public class Rook extends Piece {
 	/*
 	 * Generic constructor given by super
 	 */
-	public Rook(int row, int col, String color, PieceType identifier) {
+	public Rook(int row, int col, Player color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 

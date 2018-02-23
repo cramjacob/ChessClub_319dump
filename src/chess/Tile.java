@@ -1,10 +1,9 @@
 package chess;
 
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.Image;
 
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Tile extends JPanel {
@@ -19,5 +18,27 @@ public class Tile extends JPanel {
 		this.col = col;
 		this.isOccupied = isOccupied;
 		this.piece = piece;
+	}
+	
+	public void moveTo(Tile moveTo) {
+		if (moveTo.isOccupied) {
+			if (!this.piece.canAttack(moveTo.piece)) return;
+		}
+		// this is tile you are moving, tile is
+		this.piece.move(moveTo.row, moveTo.col);
+		moveTo.removeAll();
+		moveTo.isOccupied = true;
+		moveTo.piece = this.piece;
+		this.removePiece();
+		Image dimg = moveTo.piece.img.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+		ImageIcon imageIcon = new ImageIcon(dimg);
+		moveTo.add(new JLabel(imageIcon));
+	}
+
+	public void removePiece() {
+		this.piece = null;
+		this.isOccupied = false;
+		this.removeAll();
+		this.setBorder(null);
 	}
 }
