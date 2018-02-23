@@ -2,8 +2,9 @@ package chess;
 
 import java.util.ArrayList;
 
-public class Pawn extends Piece {
-	public boolean hasMoved = false;
+public class Pawn extends Piece{
+	
+	protected boolean hasMoved = false;
 
 	public Pawn(int row, int col, String color, PieceType identifier) {
 		super(row, col, color, identifier);

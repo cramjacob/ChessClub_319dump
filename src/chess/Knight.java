@@ -6,41 +6,41 @@ public class Knight extends Piece{
 		super(row, col, color, identifier);
 	}
 
-	@Override
-	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
-		int[][] legalMoves = new int[8][8];
+	public Tile[][] getAvailableMoves(int x, int y, Tile[][] board) {
+		Tile[][] legalMoves = new Tile[8][8];
 		
-		for(int i = 0; i < 8; i++) {
-			for(int j = 0; j < 8; j++) {
-				legalMoves[i][j] = 0;
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				legalMoves[i][j] = new Tile(j, i, false, null);
+				legalMoves[i][j].color = "WHITE";
 			}
 		}
 		
-		legalMoves[row][col] = -1;
+		legalMoves[y][x].color = "RED";
 		
-		if(((row + 2) <= 7) && ((col + 1) <= 7)){
-			legalMoves[row+2][col+1] = 1;
+		if(((y + 2) <= 7) && ((x + 1) <= 7)){
+			legalMoves[y+2][x+1].color = "RED";
 		}
-		if(((row + 2) <= 7) && ((col - 1) >= 0)){
-			legalMoves[row+2][col-1] = 1;
+		if(((y + 2) <= 7) && ((x - 1) >= 0)){
+			legalMoves[y+2][x-1].color = "RED";
 		}
-		if(((row - 2) >= 0) && ((col + 1) <= 7)){
-			legalMoves[row-2][col+1] = 1;
+		if(((y - 2) >= 0) && ((x + 1) <= 7)){
+			legalMoves[y-2][x+1].color = "RED";
 		}
-		if(((row - 2) >= 0) && ((col - 1) >= 0)){
-			legalMoves[row-2][col-1] = 1;
+		if(((y - 2) >= 0) && ((x - 1) >= 0)){
+			legalMoves[y-2][x-1].color = "RED";
 		}
-		if(((col + 2) <= 7) && ((row + 1) <= 7)){
-			legalMoves[row+1][col+2] = 1;
+		if(((x + 2) <= 7) && ((y + 1) <= 7)){
+			legalMoves[y+1][x+2].color = "RED";
 		}
-		if(((col + 2) <= 7) && ((row - 1) >= 0)){
-			legalMoves[row-1][col+2] = 1;
+		if(((x + 2) <= 7) && ((y - 1) >= 0)){
+			legalMoves[y-1][x+2].color = "RED";
 		}
-		if(((col - 2) >= 0) && ((row + 1) <= 7)){
-			legalMoves[row+1][col-2] = 1;
+		if(((x - 2) >= 0) && ((y + 1) <= 7)){
+			legalMoves[y+1][x-2].color = "RED";
 		}
-		if(((col - 2) >= 0) && ((row - 1) >= 0)){
-			legalMoves[row-1][col-2] = 1;
+		if(((x - 2) >= 0) && ((y - 1) >= 0)){
+			legalMoves[y-1][x-2].color = "RED";
 		}
 		return board[0];
 	}
