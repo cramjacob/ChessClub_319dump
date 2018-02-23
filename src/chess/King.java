@@ -9,6 +9,12 @@ public class King extends Piece{
 	@Override
 	public int[][] getAvailableMoves(int x, int y, Tile[][] board) {
 		// TODO Auto-generated method stub
+		int[][] legalMoves = new int[8][8];
+		boolean flag = false;
+		
+		
+		
+		
 		return null;
 	}
 }
