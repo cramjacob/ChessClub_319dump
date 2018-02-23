@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 public class Rook extends Piece {
 
 	/*
@@ -14,62 +16,62 @@ public class Rook extends Piece {
 	 * there is a legal move Puts a -1 in the spot where the piece is
 	 */
 	@Override
-	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
-		int[][] legalMoves = new int[8][8];
-		boolean flag = false; // this bool represents if we have ran into a piece yet or not
-
-		// Initialize legalMoves to all 0's
-		for (int j = 0; j < 8; j++) {
-			for (int k = 0; k < 8; k++) {
-				legalMoves[j][k] = 0;
+	public Tile[] getAvailableMoves(Tile[][] board) {
+		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
+		boolean flag = false;
+		
+		// Check to the right on rank
+		for (int col = this.col; col < 8; col++) {
+			if (!board[this.row][col].isOccupied && !flag) {
+				legalMoves.add(board[this.row][col]);
+			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color != this.color) {
+				legalMoves.add(board[this.row][col]);
+				flag = true;
+			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color == this.color && col != this.col) {
+				col = 8;
 			}
-		}
-
-		legalMoves[row][col] = -1;
-
-		// Check upwards on the file
-		for (int i = row + 1; i < 8; i++) {
-			if (board[i][col].isOccupied == false && !flag) {
-				legalMoves[i][col] = 1;
-			} else if (board[i][col].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[i][col] = 1;
+		} flag = false;
+		
+		// Check to left on rank
+		for (int col = this.col; col >= 0; col--) {
+			if (!board[this.row][col].isOccupied && !flag) {
+				legalMoves.add(board[this.row][col]);
+			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color != this.color) {
+				legalMoves.add(board[this.row][col]);
 				flag = true;
-			} 
-		}
-		flag = false;
-
-		// Check downwards on the file
-		for (int i = row - 1; i >= 0; i--) {
-			if (board[i][col].isOccupied == false && !flag) {
-				legalMoves[i][col] = 1;
-			} else if (board[i][col].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[i][col] = 1;
-				flag = true;
+			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color == this.color && col != this.col) {
+				col = -1;
 			}
-		}
-		flag = false;
-
-		// Check rightwards on the rank
-		for (int i = col + 1; i < 8; i++) {
-			if (board[row][i].isOccupied == false && !flag) {
-				legalMoves[row][i] = 1;
-			} else if (board[row][i].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[row][i] = 1;
+		} flag = false;
+		
+		// Check above on file
+		for (int row = this.row ; row >= 0; row--) {
+			if (!board[row][this.col].isOccupied && !flag) {
+				legalMoves.add(board[row][this.col]);
+			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color != this.color) {
+				legalMoves.add(board[row][this.col]);
 				flag = true;
+			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color == this.color && row != this.row) {
+				row = -1;
 			}
-		}
-		flag = false;
-
-		// Check leftwards on the rank
-		for (int i = col - 1; i >= 0; i--) {
-			if (board[row][i].isOccupied == false && !flag) {
-				legalMoves[row][i] = 1;
-			} else if (board[row][i].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[row][i] = 1;
+		} flag = false;
+		
+		// Check below on file
+		for (int row = this.row; row < 8; row++) {
+			if (!board[row][this.col].isOccupied && !flag) {
+				legalMoves.add(board[row][this.col]);
+			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color != this.color) {
+				legalMoves.add(board[row][this.col]);
 				flag = true;
-			} 
-		}
-		return board[0];
+			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color == this.color && row != this.row) {
+				row = 8;
+			}
+		} flag = false;
+		
+		Tile[] ret = new Tile[legalMoves.size()];
+		System.out.print("arraylist: " + legalMoves.size() + " ");
+		System.out.print("array: " + ret.length + "\n");
+		return legalMoves.toArray(ret);
 	}
 
 }

@@ -11,25 +11,25 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
+	public Tile[] getAvailableMoves(Tile[][] board) {
 		ArrayList<Tile> available = new ArrayList<Tile>();
 		for (int bRow = 0; bRow < 8; bRow++) {
 			for (int bCol = 0; bCol < 8; bCol++) {
-				if (bCol == col) {
+				if (bCol == this.col) {
 					// first move
-					if (!hasMoved && (bRow == row - 2 || bRow == row + 2)) {
+					if (!hasMoved && (bRow == this.row - 2 || bRow == this.row + 2)) {
 						available.add(board[bRow][bCol]);
-					} else if (bRow == row - 1 && this.color == Player.White) {
+					} else if (bRow == this.row - 1 && this.color == Player.White) {
 						if (!board[bRow][bCol].isOccupied) {
 							available.add(board[bRow][bCol]);
 						}
-					} else if (bRow == row + 1 && this.color == Player.Black) {
+					} else if (bRow == this.row + 1 && this.color == Player.Black) {
 						if (!board[bRow][bCol].isOccupied) {
 							available.add(board[bRow][bCol]);
 						}
 					}
-				} else if (bCol == col + 1 || bCol == col - 1) {
-					if (bRow == row - 1 || bRow == row + 1) {
+				} else if (bCol == this.col + 1 || bCol == this.col - 1) {
+					if (bRow == this.row - 1 || bRow == this.row + 1) {
 						if (board[bRow][bCol].isOccupied && this.isOpponent(board[bRow][bCol].piece.color)) {
 							available.add(board[bRow][bCol]);
 						}

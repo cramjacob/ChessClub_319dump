@@ -16,7 +16,7 @@ public class DrawCircle extends ImageIcon {
 	// paint is called automatically when program begins, when window is
 	// refreshed and when repaint() is invoked
 	public Image setImage() {
-		String url =  "/Users/leximarie/Desktop/319/B6/assets/";
+		String url =  "C:\\Users\\Sean\\Documents\\B6\\B6\\assets\\";
 		url += "grey-circle.png";
 		BufferedImage img = null;
 		try {
