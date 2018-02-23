@@ -2,41 +2,8 @@ package chess;
 
 import java.util.Random;
 
-public class chess960Board {
-	private Tile[][] board = new Tile[8][8];
-	
-	public chess960Board() {
-		initChess960();
-	}
+public class chess960Board extends Board {
 
-	/*
-	 * Will print out the current board position as such:
-	 * 
-	 * |R|N|B|Q|K|B|N|R| 
-	 * |p|p|p|p|p|p|p|p|
-	 *
-	 * 
-	 * 
-	 * 
-	 * |p|p|p|p|p|p|p|p| 
-	 * |R|N|B|Q|K|B|N|R|
-	 * 
-	 */
-	public void printBoard() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (board[i][j].isOccupied) {
-					if (j == 0) {
-						System.out.print("|");
-					}
-					System.out.print(board[i][j].piece.identifier + "|");
-				} else {
-					System.out.print(" ");
-				}
-			}
-			System.out.print("\n");
-		}
-	}
 	/*
 	 * Chess960, also called Fischer Random Chess is a variant of chess. It employs
 	 * the same board and pieces as standard chess, but the starting position of the
@@ -49,17 +16,17 @@ public class chess960Board {
 	 * instead of generating the back ranks in order, we use a helper function that
 	 * creates one of the 960 possible positions and assigns it to the back rank.
 	 */
-	private void initChess960() {
+	public void initBoard() {
 		generateBackRank960(0);
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (i == 0 || i == 7){
 					//do nothing, as the first call to generateRandomBackRank960() will create the 1st rank position
 				} else if (i == 1) { // if on the 7th rank, fill with black pawns
-					Pawn p = new Pawn(i, j, "Black", "p");
+					Pawn p = new Pawn(i, j, "Black", PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else if (i == 6) { // if on the 2nd rank, fill with white pawns
-					Pawn p = new Pawn(i, j, "White", "p");
+					Pawn p = new Pawn(i, j, "White", PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else { // else, the board must have an empty tile at this position
 					board[i][j] = new Tile(i, j, false, null);
@@ -109,9 +76,9 @@ public class chess960Board {
 			 * Bishops must be placed where 1 is on an even index and one is on an odd index
 			 * for the requirement of opposite-colored bishops.
 			 */
-			if (randomBackRank[i].identifier == "B") {
+			if (randomBackRank[i].identifier == PieceType.Bishop) {
 				for (int j = i + 1; j < randomBackRank.length; j++) {
-					if (randomBackRank[j].identifier == "B") {
+					if (randomBackRank[j].identifier == PieceType.Bishop) {
 						if (i % 2 != j % 2) {boolBishop = true;}
 					}
 				}
@@ -120,12 +87,12 @@ public class chess960Board {
 			 * A rook must be found on either side of the king to satisfy the requirement
 			 * that the king be between both rooks.
 			 */
-			if (randomBackRank[i].identifier == "K") {
+			if (randomBackRank[i].identifier == PieceType.King) {
 				for (int j = i; j >= 0; j--) { // check left side
-					if (randomBackRank[j].identifier == "R") {boolKingLeft = true;}
+					if (randomBackRank[j].identifier == PieceType.Rook) {boolKingLeft = true;}
 				}
 				for (int j = i; j < randomBackRank.length; j++) { // check right side
-					if (randomBackRank[j].identifier == "R") {boolKingRight = true;}
+					if (randomBackRank[j].identifier == PieceType.Rook) {boolKingRight = true;}
 				}
 			}
 		}
@@ -136,14 +103,14 @@ public class chess960Board {
 	 * Helper method that returns a randomly generated array of back rank pieces
 	 */
 	private Piece[] randomBackRank(int i, String color) {
-		Rook r = new Rook(i, 9, color, "R");
-		Rook ro = new Rook(i, 9, color, "R");
-		Knight n = new Knight(i, 9, color, "N");
-		Knight ni = new Knight(i, 9, color, "N");
-		Bishop b = new Bishop(i, 9, color, "B");
-		Bishop bi = new Bishop(i, 9, color, "B");
-		Queen q = new Queen(i, 9, color, "Q");
-		King k = new King(i, 9, color, "K");
+		Rook r = new Rook(i, 9, color, PieceType.Rook);
+		Rook ro = new Rook(i, 9, color, PieceType.Rook);
+		Knight n = new Knight(i, 9, color, PieceType.Knight);
+		Knight ni = new Knight(i, 9, color, PieceType.Knight);
+		Bishop b = new Bishop(i, 9, color, PieceType.Bishop);
+		Bishop bi = new Bishop(i, 9, color, PieceType.Bishop);
+		Queen q = new Queen(i, 9, color, PieceType.Queen);
+		King k = new King(i, 9, color, PieceType.King);
 		Piece[] availablePieces = { r, ro, n, ni, q, k, b, bi };
 		for (int z = availablePieces.length - 1; z > 0; z--) {
 			Random rand = new Random();
@@ -153,5 +120,9 @@ public class chess960Board {
 			availablePieces[j] = swap;
 		}
 		return availablePieces;
+	}
+	
+	public Tile[][] getBoard(){
+		return this.board;
 	}
 }

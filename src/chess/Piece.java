@@ -1,18 +1,58 @@
 package chess;
 
-public abstract class Piece {
-	protected int x;
-	protected int y;
-	protected String color;
-	protected String identifier;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-	public Piece(int x, int y, String color, String identifier) {
-		this.x = x;
-		this.y = y;
+import javax.imageio.ImageIO;
+
+public abstract class Piece {
+	protected int row;
+	protected int col;
+	protected String color;
+	protected PieceType identifier;
+	protected boolean captured;
+	public BufferedImage img;
+
+	public Piece(int row, int col, String color, PieceType identifier) {
+		this.row = row;
+		this.col = col;
 		this.color = color;
 		this.identifier = identifier;
+		this.setImage(color, identifier);
+	}
+	
+	public boolean canAttack(Piece toAttack) {
+		if (toAttack.color == this.color) return false;
+		return true;
+	}
+	
+	public void move(int row, int col) {
+		this.row = row;
+		this.col = col;
+	}
+	
+	void setImage(String color, PieceType identifier) {
+		String url = "/Users/leximarie/Desktop/319/B6/assets/";
+		url += identifier.name().toLowerCase() + "-" + color.toLowerCase() + ".png";
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File(url));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		this.img = img;
+	}
+	
+	public boolean isOpponent(String opp) {
+		return this.color != opp && (opp == "White" || opp == "Black");
+	}
+	
+	public boolean isValid(Board board, int fromRow, int fromCol, int toRow, int toCol) {
+		if (fromRow == toRow && fromCol == toCol) return false;
+		if (toRow > 7 || toRow < 0 || toCol > 7 || toCol < 0) return false;
+		return true;
 	}
 
-	
-	public abstract int[][] getAvailableMoves(int x, int y, Tile[][] board);
+	public abstract Tile[] getAvailableMoves(int x, int y, Tile[][] board);
 }

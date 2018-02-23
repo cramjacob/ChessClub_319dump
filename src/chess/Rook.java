@@ -5,8 +5,8 @@ public class Rook extends Piece {
 	/*
 	 * Generic constructor given by super
 	 */
-	public Rook(int x, int y, String color, String identifier) {
-		super(x, y, color, identifier);
+	public Rook(int row, int col, String color, PieceType identifier) {
+		super(row, col, color, identifier);
 	}
 
 	/*
@@ -14,7 +14,7 @@ public class Rook extends Piece {
 	 * there is a legal move Puts a -1 in the spot where the piece is
 	 */
 	@Override
-	public int[][] getAvailableMoves(int x, int y, Tile[][] board) {
+	public Tile[] getAvailableMoves(int row, int col, Tile[][] board) {
 		int[][] legalMoves = new int[8][8];
 		boolean flag = false; // this bool represents if we have ran into a piece yet or not
 
@@ -25,51 +25,51 @@ public class Rook extends Piece {
 			}
 		}
 
-		legalMoves[y][x] = -1;
+		legalMoves[row][col] = -1;
 
 		// Check upwards on the file
-		for (int i = y + 1; i < 8; i++) {
-			if (board[i][x].isOccupied == false && !flag) {
-				legalMoves[i][x] = 1;
-			} else if (board[i][x].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[i][x] = 1;
+		for (int i = row + 1; i < 8; i++) {
+			if (board[i][col].isOccupied == false && !flag) {
+				legalMoves[i][col] = 1;
+			} else if (board[i][col].isOccupied == true) { // if occupied, it is a legal move (capture) 
+				legalMoves[i][col] = 1;
 				flag = true;
 			} 
 		}
 		flag = false;
 
 		// Check downwards on the file
-		for (int i = y - 1; i >= 0; i--) {
-			if (board[i][x].isOccupied == false && !flag) {
-				legalMoves[i][x] = 1;
-			} else if (board[i][x].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[i][x] = 1;
+		for (int i = row - 1; i >= 0; i--) {
+			if (board[i][col].isOccupied == false && !flag) {
+				legalMoves[i][col] = 1;
+			} else if (board[i][col].isOccupied == true) { // if occupied, it is a legal move (capture) 
+				legalMoves[i][col] = 1;
 				flag = true;
 			}
 		}
 		flag = false;
 
 		// Check rightwards on the rank
-		for (int i = x + 1; i < 8; i++) {
-			if (board[y][i].isOccupied == false && !flag) {
-				legalMoves[y][i] = 1;
-			} else if (board[y][i].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[y][i] = 1;
+		for (int i = col + 1; i < 8; i++) {
+			if (board[row][i].isOccupied == false && !flag) {
+				legalMoves[row][i] = 1;
+			} else if (board[row][i].isOccupied == true) { // if occupied, it is a legal move (capture) 
+				legalMoves[row][i] = 1;
 				flag = true;
 			}
 		}
 		flag = false;
 
 		// Check leftwards on the rank
-		for (int i = x - 1; i >= 0; i--) {
-			if (board[y][i].isOccupied == false && !flag) {
-				legalMoves[y][i] = 1;
-			} else if (board[y][i].isOccupied == true) { // if occupied, it is a legal move (capture) 
-				legalMoves[y][i] = 1;
+		for (int i = col - 1; i >= 0; i--) {
+			if (board[row][i].isOccupied == false && !flag) {
+				legalMoves[row][i] = 1;
+			} else if (board[row][i].isOccupied == true) { // if occupied, it is a legal move (capture) 
+				legalMoves[row][i] = 1;
 				flag = true;
 			} 
 		}
-		return legalMoves;
+		return board[0];
 	}
 
 }
