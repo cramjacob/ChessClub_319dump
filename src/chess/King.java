@@ -21,7 +21,41 @@ public class King extends Piece {
 				}
 			}
 		}
-
+		// Castle Check (east)
+		boolean valid = true;
+		int side = 0;
+		if(this.color == Player.White) {
+			side = 7;
+		}
+		for(int j = 1; j < 3; j++) {
+			if(board[side][j + 4].isOccupied || !this.hasMoved) {
+				valid = false;
+			}
+		}
+		if(board[side][7].isOccupied && board[side][7].piece.identifier == PieceType.Rook
+				&& this.color == board[side][7].piece.color
+				&& !board[side][7].piece.hasMoved && valid) {
+			i++;
+			available[i] = board[side][6];
+		}
+		// Castle Check (west)
+		valid = true;
+		side = 0;
+		if(this.color == Player.White) {
+			side = 7;
+		}
+		for(int j = 1; j < 4; j++) {
+			if(board[side][4 - j].isOccupied || !this.hasMoved) {
+				valid = false;
+			}
+		}
+		if(board[side][0].isOccupied && board[side][0].piece.identifier == PieceType.Rook
+				&& this.color == board[side][0].piece.color
+				&& !board[side][0].piece.hasMoved && valid) {
+			i++;
+			available[i] = board[side][2];
+		}
+		
 		return available;
 	}
 }
