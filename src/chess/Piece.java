@@ -12,6 +12,7 @@ public abstract class Piece {
 	protected Player color;
 	protected PieceType identifier;
 	protected boolean captured;
+	protected boolean hasMoved;
 	public BufferedImage img;
 
 	public Piece(int row, int col, Player color, PieceType identifier) {
@@ -20,6 +21,7 @@ public abstract class Piece {
 		this.color = color;
 		this.identifier = identifier;
 		this.setImage(color, identifier);
+		this.hasMoved = false;
 	}
 	
 	public boolean canAttack(Piece toAttack) {
