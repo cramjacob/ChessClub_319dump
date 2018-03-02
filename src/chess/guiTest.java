@@ -2,7 +2,7 @@ package chess;
 
 public class guiTest {
 	public static void main(String [] args) {
-		classicalChessBoard board = new classicalChessBoard();
+		chess960Board board = new chess960Board();
 		chessBoardGUI gui = new chessBoardGUI(board);
 	}
 }
