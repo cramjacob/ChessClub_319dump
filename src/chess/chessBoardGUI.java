@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class chessBoardGUI implements MouseListener {
+public class chessBoardGUI implements MouseListener, ActionListener {
 	
 	private JFrame chessFrame;
 	private JPanel chessPanel;
@@ -107,31 +107,18 @@ public class chessBoardGUI implements MouseListener {
 	private void populateMenuBar(JMenuBar menuBar) {
 		
 		JMenu file = new JMenu("File");
+		
 		JMenuItem restart = new JMenuItem("Restart");
-		restart.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked");
-				chessFrame.dispose();
-				new chessBoardGUI(new classicalChessBoard());
-
-			}     
-        });
+		restart.addActionListener(this);
 		file.add(restart);
 		
-		JMenuItem restart960 = new JMenuItem("Restart 960");
-		restart960.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked");
-				chessFrame.dispose();
-				new chessBoardGUI(new chess960Board());
-
-			} 
-		});
-		file.add(restart960);
+		JMenuItem classical = new JMenuItem("New Classical");
+		classical.addActionListener(this);
+		file.add(classical);
+		
+		JMenuItem board960 = new JMenuItem("New 960");
+		board960.addActionListener(this);
+		file.add(board960);
 
 		menuBar.add(file);
 		menuBar.add(new JMenu("Options"));
@@ -178,6 +165,28 @@ public class chessBoardGUI implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String type = e.getActionCommand();
+		chessFrame.dispose();
+		chess960Board b960 = new chess960Board();
+		classicalChessBoard classical = new classicalChessBoard();
+		
+		if (type.equals("New Classical")) {
+			new chessBoardGUI(classical);
+		}
+		if (type.equals("New 960")) {
+			new chessBoardGUI(b960);
+		}
+		if (type.equals("Restart")) {
+			if (this.board.getClass().equals(classical.getClass())) {
+				new chessBoardGUI(classical);
+			} else {
+				new chessBoardGUI(b960);
+			}
+		}
 	}
 	
 	

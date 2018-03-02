@@ -8,7 +8,6 @@ public class Knight extends Piece{
 		super(row, col, color, identifier);
 	}
 
-	@Override
 	public Tile[] getAvailableMoves(Tile[][] board) {
 		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
 		

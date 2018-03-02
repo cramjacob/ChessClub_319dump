@@ -15,7 +15,6 @@ public class Rook extends Piece {
 	 * Returns int array of 8x8 of 0's where there is no legal move and 1's where
 	 * there is a legal move Puts a -1 in the spot where the piece is
 	 */
-	@Override
 	public Tile[] getAvailableMoves(Tile[][] board) {
 		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
 		boolean flag = false;
@@ -69,8 +68,6 @@ public class Rook extends Piece {
 		} flag = false;
 		
 		Tile[] ret = new Tile[legalMoves.size()];
-		System.out.print("arraylist: " + legalMoves.size() + " ");
-		System.out.print("array: " + ret.length + "\n");
 		return legalMoves.toArray(ret);
 	}
 

@@ -35,7 +35,7 @@ public abstract class Piece {
 	}
 	
 	void setImage(Player color, PieceType identifier) {
-		String url = "C:\\Users\\Sean\\Documents\\B6\\B6\\assets\\";
+		String url = "assets/";
 		url += identifier.name().toLowerCase() + "-" + color.name().toLowerCase() + ".png";
 		BufferedImage img = null;
 		try {
