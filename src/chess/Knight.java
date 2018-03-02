@@ -6,7 +6,7 @@ public class Knight extends Piece{
 		super(row, col, color, identifier);
 	}
 
-	public Tile[] getAvailableMoves(int x, int y, Tile[][] board) {
+	public Tile[] getAvailableMoves(Tile[][] board) {
 		Tile[][] legalMoves = new Tile[8][8];
 		
 		for(int i = 0; i < 8; i++) {
@@ -16,39 +16,32 @@ public class Knight extends Piece{
 			}
 		}
 		
-		legalMoves[y][x].color = "RED";
+		legalMoves[this.row][this.col].color = "RED";
 		
-		if(((y + 2) <= 7) && ((x + 1) <= 7)){
-			legalMoves[y+2][x+1].color = "RED";
+		if(((this.row + 2) <= 7) && ((this.col + 1) <= 7)){
+			legalMoves[this.row+2][this.col+1].color = "RED";
 		}
-		if(((y + 2) <= 7) && ((x - 1) >= 0)){
-			legalMoves[y+2][x-1].color = "RED";
+		if(((this.row + 2) <= 7) && ((this.col - 1) >= 0)){
+			legalMoves[this.row+2][this.col-1].color = "RED";
 		}
-		if(((y - 2) >= 0) && ((x + 1) <= 7)){
-			legalMoves[y-2][x+1].color = "RED";
+		if(((this.row - 2) >= 0) && ((this.col + 1) <= 7)){
+			legalMoves[this.row-2][this.col+1].color = "RED";
 		}
-		if(((y - 2) >= 0) && ((x - 1) >= 0)){
-			legalMoves[y-2][x-1].color = "RED";
+		if(((this.row - 2) >= 0) && ((this.col - 1) >= 0)){
+			legalMoves[this.row-2][this.col-1].color = "RED";
 		}
-		if(((x + 2) <= 7) && ((y + 1) <= 7)){
-			legalMoves[y+1][x+2].color = "RED";
+		if(((this.col + 2) <= 7) && ((this.row + 1) <= 7)){
+			legalMoves[this.row+1][this.col+2].color = "RED";
 		}
-		if(((x + 2) <= 7) && ((y - 1) >= 0)){
-			legalMoves[y-1][x+2].color = "RED";
+		if(((this.col + 2) <= 7) && ((this.row - 1) >= 0)){
+			legalMoves[this.row-1][this.col+2].color = "RED";
 		}
-		if(((x - 2) >= 0) && ((y + 1) <= 7)){
-			legalMoves[y+1][x-2].color = "RED";
+		if(((this.col - 2) >= 0) && ((this.row + 1) <= 7)){
+			legalMoves[this.row+1][this.col-2].color = "RED";
 		}
-		if(((x - 2) >= 0) && ((y - 1) >= 0)){
-			legalMoves[y-1][x-2].color = "RED";
+		if(((this.col - 2) >= 0) && ((this.row - 1) >= 0)){
+			legalMoves[this.row-1][this.col-2].color = "RED";
 		}
-		return board;
-	}
-
-	@Override
-	public Tile[] getAvailableMoves(Tile[][] board) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-		
+		return board[0];
+	}	
 }

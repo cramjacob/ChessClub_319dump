@@ -10,7 +10,6 @@ public class Pawn extends Piece {
 		super(row, col, color, identifier);
 	}
 
-	@Override
 	public Tile[] getAvailableMoves(Tile[][] board) {
 		ArrayList<Tile> available = new ArrayList<Tile>();
 		for (int bRow = 0; bRow < 8; bRow++) {
@@ -29,8 +28,11 @@ public class Pawn extends Piece {
 						}
 					}
 				} else if (bCol == this.col + 1 || bCol == this.col - 1) {
-					if (bRow == this.row - 1 || bRow == this.row + 1) {
-						if (board[bRow][bCol].isOccupied && this.isOpponent(board[bRow][bCol].piece.color)) {
+					if (board[bRow][bCol].isOccupied && this.isOpponent(board[bRow][bCol].piece.color)) {
+						if (bRow == this.row - 1 && this.color == Player.White) {
+							available.add(board[bRow][bCol]);
+						}
+						if (bRow == this.row + 1 && this.color == Player.Black) {
 							available.add(board[bRow][bCol]);
 						}
 					}

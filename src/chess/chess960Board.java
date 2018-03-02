@@ -23,10 +23,10 @@ public class chess960Board extends Board {
 				if (i == 0 || i == 7){
 					//do nothing, as the first call to generateRandomBackRank960() will create the 1st rank position
 				} else if (i == 1) { // if on the 7th rank, fill with black pawns
-					Pawn p = new Pawn(i, j, "Black", PieceType.Pawn);
+					Pawn p = new Pawn(i, j, Player.Black, PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else if (i == 6) { // if on the 2nd rank, fill with white pawns
-					Pawn p = new Pawn(i, j, "White", PieceType.Pawn);
+					Pawn p = new Pawn(i, j, Player.White, PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else { // else, the board must have an empty tile at this position
 					board[i][j] = new Tile(i, j, false, null);
@@ -44,9 +44,9 @@ public class chess960Board extends Board {
 	 */
 
 	private void generateBackRank960(int i) {
-		Piece[] backRank = randomBackRank(i, "Black");
+		Piece[] backRank = randomBackRank(i, Player.Black);
 		do {
-			backRank = randomBackRank(i, "Black");
+			backRank = randomBackRank(i, Player.Black);
 		} while (!isValid(backRank));
 
 		for (int j = 0; j < backRank.length; j++) {
@@ -102,7 +102,7 @@ public class chess960Board extends Board {
 	/*
 	 * Helper method that returns a randomly generated array of back rank pieces
 	 */
-	private Piece[] randomBackRank(int i, String color) {
+	private Piece[] randomBackRank(int i, Player color) {
 		Rook r = new Rook(i, 9, color, PieceType.Rook);
 		Rook ro = new Rook(i, 9, color, PieceType.Rook);
 		Knight n = new Knight(i, 9, color, PieceType.Knight);

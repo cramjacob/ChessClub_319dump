@@ -54,5 +54,5 @@ public abstract class Piece {
 		return true;
 	}
 
-	public abstract Tile[] getAvailableMoves(int x, int y, Tile[][] board);
+	public abstract Tile[] getAvailableMoves(Tile[][] board);
 }
