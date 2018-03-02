@@ -15,7 +15,7 @@ public class Bishop extends Piece {
 
 		int row1 = row - 1;
 		int col1 = col - 1;
-		// Check up diagonal left 
+		// Check up diagonal left
 		while (row1 >= 0 && col1 >= 0) {
 			if (!board[row1][col1].isOccupied && !flag) {
 				legalMoves.add(board[row1][col1]);
@@ -24,10 +24,11 @@ public class Bishop extends Piece {
 				flag = true;
 			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
-			}	col1 -= 1;
-				row1 -= 1;
-		} flag = false;
-		
+			}
+			col1 -= 1;
+			row1 -= 1;
+		}
+		flag = false;
 
 		row1 = row - 1;
 		col1 = col + 1;
@@ -41,9 +42,10 @@ public class Bishop extends Piece {
 			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-				col1 += 1;
-				row1 -= 1;
-		} flag = false;
+			col1 += 1;
+			row1 -= 1;
+		}
+		flag = false;
 
 		row1 = row + 1;
 		col1 = col - 1;
@@ -57,9 +59,10 @@ public class Bishop extends Piece {
 			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-				col1 -= 1;
-				row1 += 1;
-		} flag = false;
+			col1 -= 1;
+			row1 += 1;
+		}
+		flag = false;
 
 		row1 = row + 1;
 		col1 = col + 1;
@@ -73,11 +76,12 @@ public class Bishop extends Piece {
 			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-				col1 += 1;
-				row1 += 1;
-		
-		} flag = false;
-		
+			col1 += 1;
+			row1 += 1;
+
+		}
+		flag = false;
+
 		Tile[] ret = new Tile[legalMoves.size()];
 		System.out.print("arraylist: " + legalMoves.size() + " ");
 		System.out.print("array: " + ret.length + "\n");
