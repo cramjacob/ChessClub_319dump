@@ -30,7 +30,7 @@ public class testRookAvailableMoves {
 		/*
 		 * Create new rook, place it on the board
 		 */
-		Rook testRook = new Rook(2, 1, Player.White, PieceType.Rook);
+		Rook testRook = new Rook(2, 1, Color.White, PieceType.Rook);
 		testBoard[testRook.row][testRook.col] = new Tile(testRook.row, testRook.col, true, testRook);
 		/*
 		 * Get legalMoves and expectedMoves 
@@ -127,7 +127,7 @@ public class testRookAvailableMoves {
 			int randRow = rand.nextInt(8); // [0-7]
 			int randCol = rand.nextInt(8); // [0-7]
 			int randColor = rand.nextInt(2); // [0-1]
-			Player playerColor = (randColor == 1) ? Player.White : Player.Black; // Choose White if 1, Black if 0
+			Color playerColor = (randColor == 1) ? Color.White : Color.Black; // Choose White if 1, Black if 0
 			Rook testRook = new Rook(randRow, randCol, playerColor, PieceType.Rook);
 			testBoard.placeTile(new Tile (randRow, randCol, true, testRook)); // Add it to the board
 			
@@ -137,7 +137,7 @@ public class testRookAvailableMoves {
 			randRow = rand.nextInt(8); // [0-7]
 			randCol = rand.nextInt(8); // [0-7]
 			randColor = rand.nextInt(2); // [0-1]
-			playerColor = (randColor == 1) ? Player.White : Player.Black; // Choose White if 1, Black if 0
+			playerColor = (randColor == 1) ? Color.White : Color.Black; // Choose White if 1, Black if 0
 			Bishop testBishop = new Bishop(randRow, randCol, playerColor, PieceType.Bishop); // Create piece
 			testBoard.placeTile(new Tile (randRow, randCol, true, testBishop)); // Add it to the board
 			
@@ -147,7 +147,7 @@ public class testRookAvailableMoves {
 			randRow = rand.nextInt(8); // [0-7]
 			randCol = rand.nextInt(8); // [0-7]
 			randColor = rand.nextInt(2); // [0-1]
-			playerColor = (randColor == 1) ? Player.White : Player.Black; // Choose White if 1, Black if 0
+			playerColor = (randColor == 1) ? Color.White : Color.Black; // Choose White if 1, Black if 0
 			Knight testKnight = new Knight(randRow, randCol, playerColor, PieceType.Knight); // Create piece
 			testBoard.placeTile(new Tile (randRow, randCol, true, testKnight)); // Add it to the board
 			
@@ -157,7 +157,7 @@ public class testRookAvailableMoves {
 			randRow = rand.nextInt(8); // [0-7]
 			randCol = rand.nextInt(8); // [0-7]
 			randColor = rand.nextInt(2); // [0-1]
-			playerColor = (randColor == 1) ? Player.White : Player.Black; // Choose White if 1, Black if 0
+			playerColor = (randColor == 1) ? Color.White : Color.Black; // Choose White if 1, Black if 0
 			Queen testQueen = new Queen(randRow, randCol, playerColor, PieceType.Queen); // Create piece
 			testBoard.placeTile(new Tile (randRow, randCol, true, testQueen)); // Add it to the board
 			
@@ -167,7 +167,7 @@ public class testRookAvailableMoves {
 			randRow = rand.nextInt(8); // [0-7]
 			randCol = rand.nextInt(8); // [0-7]
 			randColor = rand.nextInt(2); // [0-1]
-			playerColor = (randColor == 1) ? Player.White : Player.Black; // Choose White if 1, Black if 0
+			playerColor = (randColor == 1) ? Color.White : Color.Black; // Choose White if 1, Black if 0
 			Rook testRook2 = new Rook(randRow, randCol, playerColor, PieceType.Rook); // Create piece
 			testBoard.placeTile(new Tile (randRow, randCol, true, testRook2)); // Add it to the board
 			

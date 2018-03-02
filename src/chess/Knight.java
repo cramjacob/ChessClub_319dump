@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Knight extends Piece{
 	
-	public Knight(int row, int col, Player color, PieceType identifier) {
+	public Knight(int row, int col, Color color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 

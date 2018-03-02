@@ -10,7 +10,7 @@ public class Rook extends Piece {
 	 * @param color The color of the rook (Player.White)
 	 * @param identifier The identifier of the rook (PieceType.Rook)
 	 */
-	public Rook(int row, int col, Player color, PieceType identifier) {
+	public Rook(int row, int col, Color color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 

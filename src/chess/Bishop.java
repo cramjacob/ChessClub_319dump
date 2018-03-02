@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
-	public Bishop(int row, int col, Player color, PieceType identifier) {
+	public Bishop(int row, int col, Color color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 

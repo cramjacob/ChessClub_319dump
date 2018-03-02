@@ -9,13 +9,13 @@ import javax.imageio.ImageIO;
 public abstract class Piece {
 	protected int row;
 	protected int col;
-	protected Player color;
+	protected Color color;
 	protected PieceType identifier;
 	protected boolean captured;
 	protected boolean hasMoved;
 	public BufferedImage img;
 
-	public Piece(int row, int col, Player color, PieceType identifier) {
+	public Piece(int row, int col, Color color, PieceType identifier) {
 		this.row = row;
 		this.col = col;
 		this.color = color;
@@ -34,7 +34,7 @@ public abstract class Piece {
 		this.col = col;
 	}
 	
-	void setImage(Player color, PieceType identifier) {
+	void setImage(Color color, PieceType identifier) {
 		String url = "assets/";
 		url += identifier.name().toLowerCase() + "-" + color.name().toLowerCase() + ".png";
 		BufferedImage img = null;
@@ -46,8 +46,8 @@ public abstract class Piece {
 		this.img = img;
 	}
 	
-	public boolean isOpponent(Player opp) {
-		return this.color != opp && (opp == Player.White || opp == Player.Black);
+	public boolean isOpponent(Color opp) {
+		return this.color != opp && (opp == Color.White || opp == Color.Black);
 	}
 	
 	public boolean isValid(Board board, int fromRow, int fromCol, int toRow, int toCol) {

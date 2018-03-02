@@ -3,9 +3,6 @@ package chess;
 import java.util.Random;
 
 public class chess960Board extends Board {
-	private Piece[] whiteBackRank;
-	private Piece[] blackBackRank;
-
 	/*
 	 * Chess960, also called Fischer Random Chess is a variant of chess. It employs
 	 * the same board and pieces as standard chess, but the starting position of the
@@ -25,10 +22,10 @@ public class chess960Board extends Board {
 				if (i == 0 || i == 7){
 					//do nothing, as the first call to generateRandomBackRank960() will create the 1st rank position
 				} else if (i == 1) { // if on the 7th rank, fill with black pawns
-					Pawn p = new Pawn(i, j, Player.Black, PieceType.Pawn);
+					Pawn p = new Pawn(i, j, Color.Black, PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else if (i == 6) { // if on the 2nd rank, fill with white pawns
-					Pawn p = new Pawn(i, j, Player.White, PieceType.Pawn);
+					Pawn p = new Pawn(i, j, Color.White, PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else { // else, the board must have an empty tile at this position
 					board[i][j] = new Tile(i, j, false, null);
@@ -46,9 +43,9 @@ public class chess960Board extends Board {
 	 */
 
 	private void generateBackRank960() {
-		Piece[] backRank = randomBackRank(0, Player.Black);
+		Piece[] backRank = randomBackRank(0, Color.Black);
 		do {
-			backRank = randomBackRank(0, Player.Black);
+			backRank = randomBackRank(0, Color.Black);
 		} while (!isValid(backRank));
 		
 		for (int j = 0; j < backRank.length; j++) {
@@ -59,19 +56,19 @@ public class chess960Board extends Board {
 
 		for (int j = 0; j < backRank.length; j++) {
 			if (backRank[j].identifier == PieceType.Rook) {
-				board[7][j] = new Tile(7, j, true, new Rook(7, j, Player.White, PieceType.Rook));
+				board[7][j] = new Tile(7, j, true, new Rook(7, j, Color.White, PieceType.Rook));
 			}
 			if (backRank[j].identifier == PieceType.Bishop) {
-				board[7][j] = new Tile(7, j, true, new Bishop(7, j, Player.White, PieceType.Bishop));
+				board[7][j] = new Tile(7, j, true, new Bishop(7, j, Color.White, PieceType.Bishop));
 			}
 			if (backRank[j].identifier == PieceType.Knight) {
-				board[7][j] = new Tile(7, j, true, new Knight(7, j, Player.White, PieceType.Knight));
+				board[7][j] = new Tile(7, j, true, new Knight(7, j, Color.White, PieceType.Knight));
 			}
 			if (backRank[j].identifier == PieceType.Queen) {
-				board[7][j] = new Tile(7, j, true, new Queen(7, j, Player.White, PieceType.Queen));
+				board[7][j] = new Tile(7, j, true, new Queen(7, j, Color.White, PieceType.Queen));
 			}
 			if (backRank[j].identifier == PieceType.King) {
-				board[7][j] = new Tile(7, j, true, new King(7, j, Player.White, PieceType.King));
+				board[7][j] = new Tile(7, j, true, new King(7, j, Color.White, PieceType.King));
 			}
 		}
 		return;
@@ -122,7 +119,7 @@ public class chess960Board extends Board {
 	/*
 	 * Helper method that returns a randomly generated array of back rank pieces
 	 */
-	private Piece[] randomBackRank(int i, Player color) {
+	private Piece[] randomBackRank(int i, Color color) {
 		Rook r = new Rook(i, 9, color, PieceType.Rook);
 		Rook ro = new Rook(i, 9, color, PieceType.Rook);
 		Knight n = new Knight(i, 9, color, PieceType.Knight);

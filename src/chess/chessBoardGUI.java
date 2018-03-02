@@ -14,13 +14,13 @@ public class chessBoardGUI implements MouseListener, ActionListener {
 	private JFrame chessFrame;
 	private JPanel chessPanel;
 	private static Dimension boardDimensions = new Dimension(600,600);
-    private final Color lightTileColor = Color.decode("#efd0a7");
-    private final Color darkTileColor = Color.decode("#bf7007");
-    private Border selectedBorder = BorderFactory.createBevelBorder(0, Color.green, Color.GREEN);
-    private Border availableBorder = BorderFactory.createBevelBorder(0, Color.white, Color.white);
+    private final java.awt.Color lightTileColor = java.awt.Color.decode("#efd0a7");
+    private final java.awt.Color darkTileColor = java.awt.Color.decode("#bf7007");
+    private Border selectedBorder = BorderFactory.createBevelBorder(0, java.awt.Color.green, java.awt.Color.GREEN);
+    private Border availableBorder = BorderFactory.createBevelBorder(0, java.awt.Color.white, java.awt.Color.white);
     private Board board;
     private Tile selected;
-    private Player player;
+    private Color playerColor;
     private Tile[] available;
     
     
@@ -35,7 +35,7 @@ public class chessBoardGUI implements MouseListener, ActionListener {
 		
 		setUpPanel();
 		
-		this.player = Player.White;
+		this.playerColor = Color.White;
 		
 		this.chessFrame.add(chessPanel);
 		this.chessPanel.setVisible(true);
@@ -74,7 +74,7 @@ public class chessBoardGUI implements MouseListener, ActionListener {
 			}
 			this.available = new Tile[8];
 			this.selected = null;
-			this.player = this.player == Player.White ? Player.Black : Player.White;
+			this.playerColor = this.playerColor == Color.White ? Color.Black : Color.White;
 		}
 	}
 	
@@ -129,7 +129,7 @@ public class chessBoardGUI implements MouseListener, ActionListener {
 	public void mouseClicked(MouseEvent e) {
 		Tile tile = (Tile) e.getComponent();
 		if (this.selected == null) {
-			if (tile.isOccupied && tile.piece.color == this.player) {
+			if (tile.isOccupied && tile.piece.color == this.playerColor) {
 				this.selected = tile;
 				tile.setBorder(selectedBorder);
 				showAvailableMoves(tile);
