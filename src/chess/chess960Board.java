@@ -19,7 +19,7 @@ public class chess960Board extends Board {
 	 * creates one of the 960 possible positions and assigns it to the back rank.
 	 */
 	public void initBoard() {
-		generateBackRank960(0);
+		generateBackRank960();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (i == 0 || i == 7){
@@ -45,31 +45,31 @@ public class chess960Board extends Board {
 	 * will generate another random back rank and re-test compliance.
 	 */
 
-	private void generateBackRank960(int i) {
-		Piece[] backRank = randomBackRank(i, Player.Black);
+	private void generateBackRank960() {
+		Piece[] backRank = randomBackRank(0, Player.Black);
 		do {
-			backRank = randomBackRank(i, Player.Black);
+			backRank = randomBackRank(0, Player.Black);
 		} while (!isValid(backRank));
 
 		this.blackBackRank = backRank.clone();
 		
 		for (int j = 0; j < blackBackRank.length; j++) {
-			blackBackRank[j].row = i;
+			blackBackRank[j].row = 0;
 			blackBackRank[j].col = j;
-			board[i][j] = new Tile(i, j, true, blackBackRank[j]);
+			board[blackBackRank[j].row][blackBackRank[j].col] = new Tile(blackBackRank[j].row, blackBackRank[j].col, true, blackBackRank[j]);
 		}
 		
 		for (int j = 0; j < backRank.length; j++) {
-			backRank[j].row = i + 6;
+			backRank[j].row = 7;
 			backRank[j].color = Player.White;
+			System.out.println(backRank[j].color + " - " + backRank[j].row);
 		}
 		
 		this.whiteBackRank = backRank.clone();
 		
 		for (int j = 0; j < whiteBackRank.length; j++) {
-			whiteBackRank[j].row = i;
-			whiteBackRank[j].col = j;
-			board[i][j] = new Tile(i, j, true, whiteBackRank[j]);
+			System.out.println(whiteBackRank[j].color + " - " + whiteBackRank[j].row);
+			board[whiteBackRank[j].row][whiteBackRank[j].col] = new Tile(whiteBackRank[j].row, whiteBackRank[j].col, true, whiteBackRank[j]);
 		}
 	}
 
