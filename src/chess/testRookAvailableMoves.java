@@ -24,7 +24,7 @@ public class testRookAvailableMoves {
 				testBoard[col][row] = t;
 			}
 		}
-		Rook testRook = new Rook(2, 1, "White", PieceType.Rook);
+		Rook testRook = new Rook(2, 1, Player.White, PieceType.Rook);
 		testBoard[2][1] = new Tile(2, 1, true, testRook);
 		
 		Tile[] rookMoves = testRook.getAvailableMoves(testBoard);

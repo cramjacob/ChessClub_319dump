@@ -17,28 +17,22 @@ public class testBishopAvailableMoves {
 			}
 		}
 
-		Bishop testBishop = new Bishop(2, 4, "White", PieceType.Bishop); // second rank,
+		Bishop testBishop = new Bishop(2, 4, Player.White, PieceType.Bishop); // second rank,
 															// fourth file
-		testBoard[testBishop.y][testBishop.x].isOccupied = true;
-		testBoard[testBishop.y][testBishop.x].piece = testBishop;
-		int[][] legalMoves = testBishop.getAvailableMoves(testBishop.x, testBishop.y, testBoard);
+		testBoard[testBishop.row][testBishop.col].isOccupied = true;
+		testBoard[testBishop.row][testBishop.col].piece = testBishop;
+		Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
 		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 1, 0 }, 
 											  { 0, 0, 0, 0, 0, 1, 0, 0 },
 											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
 											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
-											  { 0, 0, -1, 0, 0, 0, 0, 0 },
+											  { 0, 0, -1, 0, 0, 0, 0, 0},
 											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
 											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
 											  { 0, 0, 0, 0, 0, 1, 0, 0 } };
 		if (legalMoves.length != expectedMoves.length) {
 			fail("legalMoves and expectedMoves arrays are not the same size");
 		}
-		/*for(int i = 0; i < 8; i++){
-			for(int j = 0; j < 8; j++){
-				System.out.print(legalMoves[i][j] + " ");
-			}
-			System.out.println();
-		}*/
 		assertArrayEquals(legalMoves, expectedMoves);
 	}
 
@@ -52,21 +46,21 @@ public class testBishopAvailableMoves {
 			}
 		}
 
-		Bishop testBishop = new Bishop(2, 4, "White", "B"); // second file,
+		Bishop testBishop = new Bishop(2, 4, Player.White, PieceType.Bishop); // second file,
 															// fourth rank
-		testBoard[testBishop.y][testBishop.x].isOccupied = true;
-		testBoard[testBishop.y][testBishop.x].piece = testBishop;
+		testBoard[testBishop.row][testBishop.col].isOccupied = true;
+		testBoard[testBishop.row][testBishop.col].piece = testBishop;
 
-		Pawn testPawn = new Pawn(5, 4, "White", "p"); // fifth file, fourth rank
-		testBoard[testPawn.y][testPawn.x].isOccupied = true;
-		testBoard[testPawn.y][testPawn.x].piece = testPawn;
+		Pawn testPawn = new Pawn(5, 4, Player.White, PieceType.Pawn); // fifth file, fourth rank
+		testBoard[testPawn.row][testPawn.col].isOccupied = true;
+		testBoard[testPawn.row][testPawn.col].piece = testPawn;
 
-		int[][] legalMoves = testBishop.getAvailableMoves(testBishop.x, testBishop.y, testBoard);
+		Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
 		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 1, 0 }, 
 											  { 0, 0, 0, 0, 0, 1, 0, 0 },
 											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
 											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
-											  { 0, 0, -1, 0, 0, 0, 0, 0 },
+											  { 0, 0, -1, 0, 0, 0, 0, 0},
 											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
 											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
 											  { 0, 0, 0, 0, 0, 1, 0, 0 } };
@@ -87,27 +81,27 @@ public class testBishopAvailableMoves {
 		}
 
 		// Create test Bishop
-		Bishop testBishop = new Bishop(4, 2, "White", "B"); // second file, fourth
+		Bishop testBishop = new Bishop(4, 2, Player.White, PieceType.Bishop); // second file, fourth
 														// rank
-		testBoard[testBishop.y][testBishop.x].isOccupied = true;
-		testBoard[testBishop.y][testBishop.x].piece = testBishop;
+		testBoard[testBishop.row][testBishop.col].isOccupied = true;
+		testBoard[testBishop.row][testBishop.col].piece = testBishop;
 
 		// Create test pawn
-		Pawn testPawn = new Pawn(5, 4, "White", "p"); // fifth file, fourth rank
-		testBoard[testPawn.y][testPawn.x].isOccupied = true;
-		testBoard[testPawn.y][testPawn.x].piece = testPawn;
+		Pawn testPawn = new Pawn(5, 4, Player.White, PieceType.Pawn); // fifth file, fourth rank
+		testBoard[testPawn.row][testPawn.col].isOccupied = true;
+		testBoard[testPawn.row][testPawn.col].piece = testPawn;
 
 		// Create test pawn
-		Pawn testPawn2 = new Pawn(2, 4, "White", "p"); // second file,
+		Pawn testPawn2 = new Pawn(2, 4, Player.White, PieceType.Pawn); // second file,
 															// second rank
-		testBoard[testPawn2.y][testPawn2.x].isOccupied = true;
-		testBoard[testPawn2.y][testPawn2.x].piece = testPawn2;
+		testBoard[testPawn2.row][testPawn2.col].isOccupied = true;
+		testBoard[testPawn2.row][testPawn2.col].piece = testPawn2;
 
 		// get legalMoves and create expectedMoves
-		int[][] legalMoves = testBishop.getAvailableMoves(testBishop.x, testBishop.y, testBoard);
+		Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
 		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 1, 0 }, 
 											  { 0, 0, 0, 1, 0, 1, 0, 0 },
-											  { 0, 0, 0, 0, -1, 0, 0, 0 }, 
+											  { 0, 0, 0, 0, -1, 0, 0, 0}, 
 											  { 0, 0, 0, 1, 0, 1, 0, 0 }, 
 											  { 0, 0, 1, 0, 0, 0, 1, 0 },
 											  { 0, 1, 0, 0, 0, 0, 0, 1 }, 
@@ -142,11 +136,11 @@ public class testBishopAvailableMoves {
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				Bishop testBishop = new Bishop(j, i, "White", "B");
+				Bishop testBishop = new Bishop(j, i, Player.White, PieceType.Bishop);
 				Tile t = new Tile(j, i, true, testBishop);
 				testBoard[i][j] = t;
-				System.out.println("y: " + testBishop.y + ", x: " + testBishop.x);
-				int[][] legalMoves = testBishop.getAvailableMoves(testBishop.x, testBishop.y, testBoard);
+				System.out.println("y: " + testBishop.row + ", x: " + testBishop.col);
+				Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
 				int[][] expectedMoves = getExpectedMoves(testBishop);
 
 				if (legalMoves.length != expectedMoves.length) {
@@ -176,39 +170,39 @@ public class testBishopAvailableMoves {
 				ret[j][k] = 0;
 			}
 		}
-		int i = testBishop.y - 1;
-		int j = testBishop.x - 1;
+		int i = testBishop.row - 1;
+		int j = testBishop.col - 1;
 		while(i >= 0 && j >= 0){
 			ret[i][j] = 1;
 			i -= 1;
 			j-= 1;
 		}
 		
-		i = testBishop.y - 1;
-		j = testBishop.x + 1;
+		i = testBishop.row - 1;
+		j = testBishop.col + 1;
 		while(i >= 0 && j < 8){
 			ret[i][j] = 1;
 			i -= 1;
 			j += 1;
 		}
 		
-		i = testBishop.y + 1;
-		j = testBishop.x - 1;
+		i = testBishop.row + 1;
+		j = testBishop.col - 1;
 		while(i < 8 && j >= 0){
 			ret[i][j] = 1;
 			i += 1;
 			j -= 1;
 		}
 		
-		i = testBishop.y + 1;
-		j = testBishop.x + 1;
+		i = testBishop.row + 1;
+		j = testBishop.col + 1;
 		while(i < 8 && j < 8){
 			ret[i][j] = 1;
 			i += 1;
 			j += 1;
 		}
 		
-		ret[testBishop.y][testBishop.x] = -1;
+		ret[testBishop.row][testBishop.col] = -1;
 		return ret;
 	}
 }
