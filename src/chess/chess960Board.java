@@ -3,6 +3,8 @@ package chess;
 import java.util.Random;
 
 public class chess960Board extends Board {
+	private Piece[] whiteBackRank;
+	private Piece[] blackBackRank;
 
 	/*
 	 * Chess960, also called Fischer Random Chess is a variant of chess. It employs
@@ -17,7 +19,7 @@ public class chess960Board extends Board {
 	 * creates one of the 960 possible positions and assigns it to the back rank.
 	 */
 	public void initBoard() {
-		generateBackRank960(0);
+		generateBackRank960();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (i == 0 || i == 7){
@@ -43,18 +45,36 @@ public class chess960Board extends Board {
 	 * will generate another random back rank and re-test compliance.
 	 */
 
-	private void generateBackRank960(int i) {
-		Piece[] backRank = randomBackRank(i, Player.Black);
+	private void generateBackRank960() {
+		Piece[] backRank = randomBackRank(0, Player.Black);
 		do {
-			backRank = randomBackRank(i, Player.Black);
+			backRank = randomBackRank(0, Player.Black);
 		} while (!isValid(backRank));
+		
+		for (int j = 0; j < backRank.length; j++) {
+			backRank[j].row = 0;
+			backRank[j].col = j;
+			board[0][j] = new Tile(0, j, true, backRank[j]);
+		}
 
 		for (int j = 0; j < backRank.length; j++) {
-			backRank[j].row = j;
-			board[i][j] = new Tile(i, j, true, backRank[j]);
-			backRank[j].col = i + 7;
-			board[i + 7 ][j] = new Tile(i + 7, j, true, backRank[j]);
+			if (backRank[j].identifier == PieceType.Rook) {
+				board[7][j] = new Tile(7, j, true, new Rook(7, j, Player.White, PieceType.Rook));
+			}
+			if (backRank[j].identifier == PieceType.Bishop) {
+				board[7][j] = new Tile(7, j, true, new Bishop(7, j, Player.White, PieceType.Bishop));
+			}
+			if (backRank[j].identifier == PieceType.Knight) {
+				board[7][j] = new Tile(7, j, true, new Knight(7, j, Player.White, PieceType.Knight));
+			}
+			if (backRank[j].identifier == PieceType.Queen) {
+				board[7][j] = new Tile(7, j, true, new Queen(7, j, Player.White, PieceType.Queen));
+			}
+			if (backRank[j].identifier == PieceType.King) {
+				board[7][j] = new Tile(7, j, true, new King(7, j, Player.White, PieceType.King));
+			}
 		}
+		return;
 	}
 
 	/*

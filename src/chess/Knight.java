@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 public class Knight extends Piece{
 	
 	public Knight(int row, int col, Player color, PieceType identifier) {
@@ -7,41 +9,34 @@ public class Knight extends Piece{
 	}
 
 	public Tile[] getAvailableMoves(Tile[][] board) {
-		Tile[][] legalMoves = new Tile[8][8];
+		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
 		
-		for(int i = 0; i < 8; i++) {
-			for(int j = 0; j < 8; j++) {
-				legalMoves[i][j] = new Tile(j, i, false, null);
-				legalMoves[i][j].color = "WHITE";
-			}
+		if(((this.row + 2) <= 7) && ((this.col + 1) <= 7) && ((board[this.row+2][this.col+1].isOccupied == false) || (board[this.row+2][this.col+1].piece.color != this.color))){
+			legalMoves.add(board[this.row+2][this.col+1]);
+		}
+		if(((this.row + 2) <= 7) && ((this.col - 1) >= 0) && ((board[this.row+2][this.col-1].isOccupied == false) || (board[this.row+2][this.col-1].piece.color != this.color))){
+			legalMoves.add(board[this.row+2][this.col-1]);
+		}
+		if(((this.row - 2) >= 0) && ((this.col + 1) <= 7) && ((board[this.row-2][this.col+1].isOccupied == false) || (board[this.row-2][this.col+1].piece.color != this.color))){
+			legalMoves.add(board[this.row-2][this.col+1]);
+		}
+		if(((this.row - 2) >= 0) && ((this.col - 1) >= 0) && ((board[this.row-2][this.col-1].isOccupied == false) || (board[this.row-2][this.col-1].piece.color != this.color))){
+			legalMoves.add(board[this.row-2][this.col-1]);
+		}
+		if(((this.col + 2) <= 7) && ((this.row + 1) <= 7) && ((board[this.row+1][this.col+2].isOccupied == false) || (board[this.row+1][this.col+2].piece.color != this.color))){
+			legalMoves.add(board[this.row+1][this.col+2]);
+		}
+		if(((this.col + 2) <= 7) && ((this.row - 1) >= 0) && ((board[this.row-1][this.col+2].isOccupied == false) || (board[this.row-1][this.col+2].piece.color != this.color))){
+			legalMoves.add(board[this.row-1][this.col+2]);
+		}
+		if(((this.col - 2) >= 0) && ((this.row + 1) <= 7) && ((board[this.row+1][this.col-2].isOccupied == false) || (board[this.row+1][this.col-2].piece.color != this.color))){
+			legalMoves.add(board[this.row+1][this.col-2]);
+		}
+		if(((this.col - 2) >= 0) && ((this.row - 1) >= 0) && ((board[this.row-1][this.col-2].isOccupied == false) || (board[this.row-1][this.col-2].piece.color != this.color))){
+			legalMoves.add(board[this.row-1][this.col-2]);
 		}
 		
-		legalMoves[this.row][this.col].color = "RED";
-		
-		if(((this.row + 2) <= 7) && ((this.col + 1) <= 7)){
-			legalMoves[this.row+2][this.col+1].color = "RED";
-		}
-		if(((this.row + 2) <= 7) && ((this.col - 1) >= 0)){
-			legalMoves[this.row+2][this.col-1].color = "RED";
-		}
-		if(((this.row - 2) >= 0) && ((this.col + 1) <= 7)){
-			legalMoves[this.row-2][this.col+1].color = "RED";
-		}
-		if(((this.row - 2) >= 0) && ((this.col - 1) >= 0)){
-			legalMoves[this.row-2][this.col-1].color = "RED";
-		}
-		if(((this.col + 2) <= 7) && ((this.row + 1) <= 7)){
-			legalMoves[this.row+1][this.col+2].color = "RED";
-		}
-		if(((this.col + 2) <= 7) && ((this.row - 1) >= 0)){
-			legalMoves[this.row-1][this.col+2].color = "RED";
-		}
-		if(((this.col - 2) >= 0) && ((this.row + 1) <= 7)){
-			legalMoves[this.row+1][this.col-2].color = "RED";
-		}
-		if(((this.col - 2) >= 0) && ((this.row - 1) >= 0)){
-			legalMoves[this.row-1][this.col-2].color = "RED";
-		}
-		return board[0];
-	}	
+		Tile[] temp = new Tile[legalMoves.size()];
+		return legalMoves.toArray(temp);
+	}
 }

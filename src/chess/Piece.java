@@ -12,6 +12,7 @@ public abstract class Piece {
 	protected Player color;
 	protected PieceType identifier;
 	protected boolean captured;
+	protected boolean hasMoved;
 	public BufferedImage img;
 
 	public Piece(int row, int col, Player color, PieceType identifier) {
@@ -20,6 +21,7 @@ public abstract class Piece {
 		this.color = color;
 		this.identifier = identifier;
 		this.setImage(color, identifier);
+		this.hasMoved = false;
 	}
 	
 	public boolean canAttack(Piece toAttack) {
@@ -33,7 +35,7 @@ public abstract class Piece {
 	}
 	
 	void setImage(Player color, PieceType identifier) {
-		String url = "/Users/leximarie/Desktop/319/B6/assets/";
+		String url = "assets/";
 		url += identifier.name().toLowerCase() + "-" + color.name().toLowerCase() + ".png";
 		BufferedImage img = null;
 		try {

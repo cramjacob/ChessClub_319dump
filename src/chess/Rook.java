@@ -23,7 +23,7 @@ public class Rook extends Piece {
 		for (int col = this.col; col < 8; col++) {
 			if (!board[this.row][col].isOccupied && !flag) {
 				legalMoves.add(board[this.row][col]);
-			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color != this.color) {
+			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color != this.color && !flag) {
 				legalMoves.add(board[this.row][col]);
 				flag = true;
 			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color == this.color && col != this.col) {
@@ -35,7 +35,7 @@ public class Rook extends Piece {
 		for (int col = this.col; col >= 0; col--) {
 			if (!board[this.row][col].isOccupied && !flag) {
 				legalMoves.add(board[this.row][col]);
-			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color != this.color) {
+			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color != this.color && !flag) {
 				legalMoves.add(board[this.row][col]);
 				flag = true;
 			} else if (board[this.row][col].isOccupied && board[this.row][col].piece.color == this.color && col != this.col) {
@@ -47,7 +47,7 @@ public class Rook extends Piece {
 		for (int row = this.row ; row >= 0; row--) {
 			if (!board[row][this.col].isOccupied && !flag) {
 				legalMoves.add(board[row][this.col]);
-			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color != this.color) {
+			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color != this.color && !flag) {
 				legalMoves.add(board[row][this.col]);
 				flag = true;
 			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color == this.color && row != this.row) {
@@ -59,7 +59,7 @@ public class Rook extends Piece {
 		for (int row = this.row; row < 8; row++) {
 			if (!board[row][this.col].isOccupied && !flag) {
 				legalMoves.add(board[row][this.col]);
-			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color != this.color) {
+			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color != this.color && !flag) {
 				legalMoves.add(board[row][this.col]);
 				flag = true;
 			} else if (board[row][this.col].isOccupied && board[row][this.col].piece.color == this.color && row != this.row) {
