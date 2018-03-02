@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 public class King extends Piece {
 
 	public King(int row, int col, Player color, PieceType identifier) {
@@ -9,19 +11,24 @@ public class King extends Piece {
 	@Override
 	public Tile[] getAvailableMoves(Tile[][] board) {
 		// TODO Auto-generated method stub
-		Tile[] available = new Tile[32];
-		int i = 0;
+		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
 		for (int bRow = 0; bRow < 8; bRow++) {
 			for (int bCol = 0; bCol < 8; bCol++) {
 				if ((bRow == row - 1 && bCol == col) || (bRow == row + 1 && bCol == col)
 						|| (bRow == row && bCol == col - 1) || (bRow == row && bCol == col + 1)
-						|| (bRow == row - 1 && bCol == col - 1) || (bRow == row + 1 && bCol == col + 1)) {
-					available[i] = board[bRow][bCol];
-					i++;
+						|| (bRow == row - 1 && bCol == col - 1) || (bRow == row + 1 && bCol == col + 1)
+						|| (bRow == row - 1 && bCol == col + 1) || (bRow == row + 1 && bCol == col - 1)) {
+					if (board[bRow][bCol].isOccupied == false || board[bRow][bCol].piece.color != this.color) {
+						legalMoves.add(board[bRow][bCol]);
+					}
 				}
 			}
 		}
-		// Castle Check (east)
+		Tile[] temp = new Tile[legalMoves.size()];
+		return legalMoves.toArray(temp);
+		
+		/*
+		// Castling short
 		boolean valid = true;
 		int side = 0;
 		if(this.color == Player.White) {
@@ -38,7 +45,7 @@ public class King extends Piece {
 			i++;
 			available[i] = board[side][6];
 		}
-		// Castle Check (west)
+		// Castling long
 		valid = true;
 		side = 0;
 		if(this.color == Player.White) {
@@ -57,5 +64,7 @@ public class King extends Piece {
 		}
 		
 		return available;
+		
+		*/
 	}
 }
