@@ -17,7 +17,7 @@ public class testKnightAvailableMoves {
 		}
 		// Checking corner
 		Tile[] test1;
-		Knight k1 = new Knight(7, 7, Player.White, PieceType.Knight);
+		Knight k1 = new Knight(7, 7, Color.White, PieceType.Knight);
 		test1 = k1.getAvailableMoves(testBoard);
 		assertEquals(test1[0].color, "RED");
 		assertEquals(test1[0].color, "RED");
@@ -26,7 +26,7 @@ public class testKnightAvailableMoves {
 		}
 		// Checking half corner
 		Tile[] test2;
-		Knight k2 = new Knight(1, 1, Player.White, PieceType.Knight);
+		Knight k2 = new Knight(1, 1, Color.White, PieceType.Knight);
 		test2 = k2.getAvailableMoves(testBoard);
 		assertEquals(test2[0].color, "RED");
 		assertEquals(test2[0].color, "RED");
@@ -37,7 +37,7 @@ public class testKnightAvailableMoves {
 		}
 		//Checking 1/4 corner
 		Tile[] test3;
-		Knight k3 = new Knight(1, 4, Player.White, PieceType.Knight);
+		Knight k3 = new Knight(1, 4, Color.White, PieceType.Knight);
 		test3 = k3.getAvailableMoves(testBoard);
 		assertEquals(test3[0].color, "RED");
 		assertEquals(test3[0].color, "RED");
@@ -50,7 +50,7 @@ public class testKnightAvailableMoves {
 		}
 		//Checking open area
 		Tile[] test4;
-		Knight k4 = new Knight(4, 4, Player.White, PieceType.Knight);
+		Knight k4 = new Knight(4, 4, Color.White, PieceType.Knight);
 		test4 = k4.getAvailableMoves(testBoard);
 		assertEquals(test4[0].color, "RED");
 		assertEquals(test4[0].color, "RED");

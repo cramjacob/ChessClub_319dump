@@ -22,7 +22,7 @@ public class testBishopAvailableMoves {
 				testBoard[col][row] = t;
 			}
 		}
-		Bishop testBishop = new Bishop(2, 1, Player.White, PieceType.Bishop);
+		Bishop testBishop = new Bishop(2, 1, Color.White, PieceType.Bishop);
 		testBoard[2][1] = new Tile(2, 1, true, testBishop);
 		
 		Tile[] bishopMoves = testBishop.getAvailableMoves(testBoard);
