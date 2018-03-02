@@ -20,7 +20,7 @@ public class classicalChessBoard extends Board {
 					Pawn p = new Pawn(i, j, Player.White, PieceType.Pawn);
 					board[i][j] = new Tile(i, j, true, p);
 				} else if (i == 7) { // if on the 1st rank, fill with standard chess setup (RNBQKBNR) white
-					generateBackRankClassical(i, Player.Black);
+					generateBackRankClassical(i, Player.White);
 				} else { // else, the board must have an empty tile at this position
 					board[i][j] = new Tile(i, j, false, null);
 				}

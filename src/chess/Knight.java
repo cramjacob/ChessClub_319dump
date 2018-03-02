@@ -12,8 +12,6 @@ public class Knight extends Piece{
 	public Tile[] getAvailableMoves(Tile[][] board) {
 		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
 		
-		
-		
 		if(((this.row + 2) <= 7) && ((this.col + 1) <= 7) && ((board[this.col+1][this.row+2].isOccupied == false) || (board[this.col+1][this.row+2].piece.color != this.color))){
 			legalMoves.add(board[this.col+1][this.row+2]);
 		}
