@@ -50,27 +50,31 @@ public class chess960Board extends Board {
 		do {
 			backRank = randomBackRank(0, Player.Black);
 		} while (!isValid(backRank));
-
-		this.blackBackRank = backRank.clone();
-		
-		for (int j = 0; j < blackBackRank.length; j++) {
-			blackBackRank[j].row = 0;
-			blackBackRank[j].col = j;
-			board[blackBackRank[j].row][blackBackRank[j].col] = new Tile(blackBackRank[j].row, blackBackRank[j].col, true, blackBackRank[j]);
-		}
 		
 		for (int j = 0; j < backRank.length; j++) {
-			backRank[j].row = 7;
-			backRank[j].color = Player.White;
-			System.out.println(backRank[j].color + " - " + backRank[j].row);
+			backRank[j].row = 0;
+			backRank[j].col = j;
+			board[0][j] = new Tile(0, j, true, backRank[j]);
 		}
-		
-		this.whiteBackRank = backRank.clone();
-		
-		for (int j = 0; j < whiteBackRank.length; j++) {
-			System.out.println(whiteBackRank[j].color + " - " + whiteBackRank[j].row);
-			board[whiteBackRank[j].row][whiteBackRank[j].col] = new Tile(whiteBackRank[j].row, whiteBackRank[j].col, true, whiteBackRank[j]);
+
+		for (int j = 0; j < backRank.length; j++) {
+			if (backRank[j].identifier == PieceType.Rook) {
+				board[7][j] = new Tile(7, j, true, new Rook(7, j, Player.White, PieceType.Rook));
+			}
+			if (backRank[j].identifier == PieceType.Bishop) {
+				board[7][j] = new Tile(7, j, true, new Bishop(7, j, Player.White, PieceType.Bishop));
+			}
+			if (backRank[j].identifier == PieceType.Knight) {
+				board[7][j] = new Tile(7, j, true, new Knight(7, j, Player.White, PieceType.Knight));
+			}
+			if (backRank[j].identifier == PieceType.Queen) {
+				board[7][j] = new Tile(7, j, true, new Queen(7, j, Player.White, PieceType.Queen));
+			}
+			if (backRank[j].identifier == PieceType.King) {
+				board[7][j] = new Tile(7, j, true, new King(7, j, Player.White, PieceType.King));
+			}
 		}
+		return;
 	}
 
 	/*
