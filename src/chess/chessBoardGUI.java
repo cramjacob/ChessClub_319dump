@@ -22,6 +22,8 @@ public class chessBoardGUI implements MouseListener, ActionListener {
     private Tile selected;
     private Color playerColor;
     private Tile[] available;
+    private Player playerWhite;
+    private Player playerBlack;
     
     
 	public chessBoardGUI(Board board) {
