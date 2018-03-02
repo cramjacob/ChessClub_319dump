@@ -187,8 +187,7 @@ public class testRookAvailableMoves {
 			 */
 			System.out.println("Do you wish to generate a GUI for test #" + (i + 1) + "?\nEnter \"yes\" for yes, or \"no\" for no.\nAlternatively, you may hold enter to skip through all GUI prompts.");
 			String userIn = in.nextLine();
-			System.out.println(userIn);
-			if (userIn.toLowerCase() == "yes") {
+			if (userIn.toLowerCase().equals("yes")) {
 				chessBoardGUI GUI = new chessBoardGUI(testBoard);
 			}
 			assertArrayEquals(expectedMoves, legalMoves);
