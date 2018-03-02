@@ -6,7 +6,7 @@ public class Knight extends Piece{
 		super(row, col, color, identifier);
 	}
 
-	public Tile[][] getAvailableMoves(int x, int y, Tile[][] board) {
+	public Tile[] getAvailableMoves(int x, int y, Tile[][] board) {
 		Tile[][] legalMoves = new Tile[8][8];
 		
 		for(int i = 0; i < 8; i++){

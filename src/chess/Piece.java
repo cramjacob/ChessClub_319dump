@@ -22,7 +22,7 @@ public abstract class Piece {
 	}
 	
 	void setImage(String color, PieceType identifier) {
-		String url = "/Users/leximarie/Desktop/319/B6/assets/";
+		String url = "/Users/jacobcram/Documents/chess_club/assets/";
 		url += identifier.name().toLowerCase() + "-" + color.toLowerCase() + ".png";
 		BufferedImage img = null;
 		try {
