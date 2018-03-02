@@ -2,207 +2,71 @@ package chess;
 
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class testBishopAvailableMoves {
-
-	@Test
-	public void testInit() {
-		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
-			}
-		}
-
-		Bishop testBishop = new Bishop(2, 4, Player.White, PieceType.Bishop); // second rank,
-															// fourth file
-		testBoard[testBishop.row][testBishop.col].isOccupied = true;
-		testBoard[testBishop.row][testBishop.col].piece = testBishop;
-		Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 1, 0 }, 
-											  { 0, 0, 0, 0, 0, 1, 0, 0 },
-											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
-											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
-											  { 0, 0, -1, 0, 0, 0, 0, 0},
-											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
-											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
-											  { 0, 0, 0, 0, 0, 1, 0, 0 } };
-		if (legalMoves.length != expectedMoves.length) {
-			fail("legalMoves and expectedMoves arrays are not the same size");
-		}
-		assertArrayEquals(legalMoves, expectedMoves);
-	}
-
-	@Test
-	public void testPawn() {
-		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
-			}
-		}
-
-		Bishop testBishop = new Bishop(2, 4, Player.White, PieceType.Bishop); // second file,
-															// fourth rank
-		testBoard[testBishop.row][testBishop.col].isOccupied = true;
-		testBoard[testBishop.row][testBishop.col].piece = testBishop;
-
-		Pawn testPawn = new Pawn(5, 4, Player.White, PieceType.Pawn); // fifth file, fourth rank
-		testBoard[testPawn.row][testPawn.col].isOccupied = true;
-		testBoard[testPawn.row][testPawn.col].piece = testPawn;
-
-		Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 0, 0, 0, 0, 1, 0 }, 
-											  { 0, 0, 0, 0, 0, 1, 0, 0 },
-											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
-											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
-											  { 0, 0, -1, 0, 0, 0, 0, 0},
-											  { 0, 1, 0, 1, 0, 0, 0, 0 }, 
-											  { 1, 0, 0, 0, 1, 0, 0, 0 }, 
-											  { 0, 0, 0, 0, 0, 1, 0, 0 } };
-		if (legalMoves.length != expectedMoves.length) {
-			fail("legalMoves and expectedMoves arrays are not the same size");
-		}
-		assertArrayEquals(legalMoves, expectedMoves);
-	}
-
-	@Test
-	public void testPawnAndPawn() {
-		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
-			}
-		}
-
-		// Create test Bishop
-		Bishop testBishop = new Bishop(4, 2, Player.White, PieceType.Bishop); // second file, fourth
-														// rank
-		testBoard[testBishop.row][testBishop.col].isOccupied = true;
-		testBoard[testBishop.row][testBishop.col].piece = testBishop;
-
-		// Create test pawn
-		Pawn testPawn = new Pawn(5, 4, Player.White, PieceType.Pawn); // fifth file, fourth rank
-		testBoard[testPawn.row][testPawn.col].isOccupied = true;
-		testBoard[testPawn.row][testPawn.col].piece = testPawn;
-
-		// Create test pawn
-		Pawn testPawn2 = new Pawn(2, 4, Player.White, PieceType.Pawn); // second file,
-															// second rank
-		testBoard[testPawn2.row][testPawn2.col].isOccupied = true;
-		testBoard[testPawn2.row][testPawn2.col].piece = testPawn2;
-
-		// get legalMoves and create expectedMoves
-		Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
-		int[][] expectedMoves = new int[][] { { 0, 0, 1, 0, 0, 0, 1, 0 }, 
-											  { 0, 0, 0, 1, 0, 1, 0, 0 },
-											  { 0, 0, 0, 0, -1, 0, 0, 0}, 
-											  { 0, 0, 0, 1, 0, 1, 0, 0 }, 
-											  { 0, 0, 1, 0, 0, 0, 1, 0 },
-											  { 0, 1, 0, 0, 0, 0, 0, 1 }, 
-											  { 1, 0, 0, 0, 0, 0, 0, 0 }, 
-											  { 0, 0, 0, 0, 0, 0, 0, 0 } };
-		if (legalMoves.length != expectedMoves.length) {
-			fail("legalMoves and expectedMoves arrays are not the same size");
-		}
-		/*for(int i = 0; i < 8; i++){
-			for(int j = 0; j < 8; j++){
-				System.out.print(legalMoves[i][j] + " ");
-			}
-			System.out.println();
-		}*/
-		assertArrayEquals(legalMoves, expectedMoves);
-	}
-
 	/*
-	 * This test is going to place a rook at every possible spot on an empty
-	 * board and then generate a legalMoves array, and will verify that with
-	 * what we would expect from that rook position on an empty board
+	 * This test will place a bishop on an empty board at 
+	 * position col:2 row:3 and get available moves then test them
 	 */
 	@Test
-	public void testLiterallyAllPossibleCombinationsOfBishopOnEmptyBoard() {
+	public void testOpenBishop() {
+		
+		/*
+		 * This initializes an 8x8 board to empty tiles
+		 */
 		Tile[][] testBoard = new Tile[8][8];
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Tile t = new Tile(j, i, false, null);
-				testBoard[i][j] = t;
+		for (int col = 0; col < 8; col++) {
+			for (int row = 0; row < 8; row++) {
+				Tile t = new Tile(row, col, false, null);
+				testBoard[col][row] = t;
 			}
 		}
-
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Bishop testBishop = new Bishop(j, i, Player.White, PieceType.Bishop);
-				Tile t = new Tile(j, i, true, testBishop);
-				testBoard[i][j] = t;
-				System.out.println("y: " + testBishop.row + ", x: " + testBishop.col);
-				Tile[] legalMoves = testBishop.getAvailableMoves(testBoard);
-				int[][] expectedMoves = getExpectedMoves(testBishop);
-
-				if (legalMoves.length != expectedMoves.length) {
-					fail("legalMoves and expectedMoves arrays are not the same size");
-				}
-				
-				/*for(int i1 = 0; i1 < 8; i1++){
-					for(int j1 = 0; j1 < 8; j1++){
-						System.out.print(legalMoves[i1][j1] + " ");
-					}
-					System.out.println();
-				}*/
-				
-				assertArrayEquals(legalMoves, expectedMoves);
-
-				Tile empty = new Tile(j, i, false, null);
-				testBoard[i][j] = empty;
-			}
-		}
-
+		Bishop testBishop = new Bishop(2, 1, Player.White, PieceType.Bishop);
+		testBoard[2][1] = new Tile(2, 1, true, testBishop);
+		
+		Tile[] bishopMoves = testBishop.getAvailableMoves(testBoard);
+		System.out.println("rme " + "9");
+		System.out.println("rm " + bishopMoves.length);
+		assertEquals(9, bishopMoves.length);
 	}
-
-	private int[][] getExpectedMoves(Bishop testBishop) {
-		int[][] ret = new int[8][8];
-		for (int j = 0; j < 8; j++) {
-			for (int k = 0; k < 8; k++) {
-				ret[j][k] = 0;
-			}
-		}
-		int i = testBishop.row - 1;
-		int j = testBishop.col - 1;
-		while(i >= 0 && j >= 0){
-			ret[i][j] = 1;
-			i -= 1;
-			j-= 1;
-		}
+	@Test
+	public void testInit() {
 		
-		i = testBishop.row - 1;
-		j = testBishop.col + 1;
-		while(i >= 0 && j < 8){
-			ret[i][j] = 1;
-			i -= 1;
-			j += 1;
-		}
+		classicalChessBoard board = new classicalChessBoard();
+		board.initBoard();
+		Tile[][] testBoard = board.getBoard();
+		/*
+		 * Get each Bishop (2 for white side, 2 for black side)
+		 */
+		Piece whiteB1 = testBoard[7][0].piece;
+		Piece whiteB2 = testBoard[7][7].piece;
+		Piece blackB1 = testBoard[0][0].piece;
+		Piece blackB2 = testBoard[0][7].piece;
 		
-		i = testBishop.row + 1;
-		j = testBishop.col - 1;
-		while(i < 8 && j >= 0){
-			ret[i][j] = 1;
-			i += 1;
-			j -= 1;
-		}
+		/*
+		 * Get the available moves from each Bishop
+		 */
+		Tile[] whiteB1Moves = whiteB1.getAvailableMoves(testBoard);
+		Tile[] whiteB2Moves = whiteB2.getAvailableMoves(testBoard);
+		Tile[] blackB1Moves = blackB1.getAvailableMoves(testBoard);
+		Tile[] blackB2Moves = blackB2.getAvailableMoves(testBoard);
 		
-		i = testBishop.row + 1;
-		j = testBishop.col + 1;
-		while(i < 8 && j < 8){
-			ret[i][j] = 1;
-			i += 1;
-			j += 1;
-		}
+		/*
+		 * These are all empty, as if there are no available moves, getLegalMoves() 
+		 * has no objects to return, thus returns empty Tile array.
+		 */
+		Tile[] whiteB1ExpectedMoves = new Tile[0];
+		Tile[] whiteB2ExpectedMoves = new Tile[0];
+		Tile[] blackB1ExpectedMoves = new Tile[0];
+		Tile[] blackB2ExpectedMoves = new Tile[0];
 		
-		ret[testBishop.row][testBishop.col] = -1;
-		return ret;
+		/*
+		 * Test equality
+		 */
+		assertArrayEquals(whiteB1ExpectedMoves, whiteB1Moves);
+		assertArrayEquals(whiteB2ExpectedMoves, whiteB2Moves);
+		assertArrayEquals(blackB1ExpectedMoves, blackB1Moves);
+		assertArrayEquals(blackB2ExpectedMoves, blackB2Moves);
 	}
 }
