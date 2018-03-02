@@ -1,6 +1,8 @@
 package chess;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -9,7 +11,7 @@ import javax.swing.border.Border;
 
 public class chessBoardGUI implements MouseListener {
 	
-	private final JFrame chessFrame;
+	private JFrame chessFrame;
 	private JPanel chessPanel;
 	private static Dimension boardDimensions = new Dimension(600,600);
     private final Color lightTileColor = Color.decode("#efd0a7");
@@ -40,7 +42,7 @@ public class chessBoardGUI implements MouseListener {
 		this.chessFrame.setVisible(true);
 		this.chessFrame.repaint();
 	}
-
+	
 	private void setUpPanel() {
 		this.chessPanel = new JPanel(new GridLayout(8,8));
 		Tile[][] board = this.board.board;
@@ -103,7 +105,35 @@ public class chessBoardGUI implements MouseListener {
 	}
 
 	private void populateMenuBar(JMenuBar menuBar) {
-		menuBar.add(new JMenu("File"));
+		
+		JMenu file = new JMenu("File");
+		JMenuItem restart = new JMenuItem("Restart");
+		restart.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked");
+				chessFrame.dispose();
+				new chessBoardGUI(new classicalChessBoard());
+
+			}     
+        });
+		file.add(restart);
+		
+		JMenuItem restart960 = new JMenuItem("Restart 960");
+		restart960.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked");
+				chessFrame.dispose();
+				new chessBoardGUI(new chess960Board());
+
+			} 
+		});
+		file.add(restart960);
+
+		menuBar.add(file);
 		menuBar.add(new JMenu("Options"));
 		menuBar.add(new JMenu("Player Turn"));
 	}
