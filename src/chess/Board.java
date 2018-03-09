@@ -7,6 +7,10 @@ abstract public class Board {
 		this.initBoard();
 	}
 	
+	public Tile[][] getBoard() {
+		return this.board;
+	}
+	
 	abstract public void initBoard();
 	
 	public void printBoard() {
@@ -23,5 +27,18 @@ abstract public class Board {
 			}
 			System.out.print("\n");
 		}
+	}
+	
+	public void emptyBoard() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				this.board[i][j] = new Tile(i, j, false, null);
+			}
+		}
+		return;
+	}
+	
+	public void placeTile(Tile tile) {
+		this.board[tile.row][tile.col] = tile;
 	}
 }

@@ -1,98 +1,90 @@
 package chess;
 
+import java.util.ArrayList;
+
 public class Bishop extends Piece {
 
-	public Bishop(int row, int col, String color, PieceType identifier) {
+	public Bishop(int row, int col, Color color, PieceType identifier) {
 		super(row, col, color, identifier);
 	}
 
 	@Override
-	public int[][] getAvailableMoves(int x, int y, Tile[][] board) {
-		int[][] legalMoves = new int[8][8];
-		boolean flag = false; // this bool represents if we have ran into a
-								// piece yet or not
+	public Tile[] getAvailableMoves(Tile[][] board) {
+		ArrayList<Tile> legalMoves = new ArrayList<Tile>();
+		boolean flag = false;
 
-		// Initialize legalMoves to all 0's
-		for (int j = 0; j < 8; j++) {
-			for (int k = 0; k < 8; k++) {
-				legalMoves[j][k] = 0;
-			}
-		}
-
-		legalMoves[y][x] = -1;
-
-		int i = y - 1;
-		int j = x - 1;
-		// Check up diagonal left on the file
-		while (i >= 0 && j >= 0) {
-			if (board[i][j].isOccupied == false && !flag) {
-				legalMoves[i][j] = 1;
-			} else if (board[i][j].isOccupied == true) { // if occupied, it
-															// is a legal
-															// move
-															// (capture)
-				legalMoves[i][j] = 1;
+		int row1 = row - 1;
+		int col1 = col - 1;
+		// Check up diagonal left
+		while (row1 >= 0 && col1 >= 0) {
+			if (!board[row1][col1].isOccupied && !flag) {
+				legalMoves.add(board[row1][col1]);
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color != this.color && !flag) {
+				legalMoves.add(board[row1][col1]);
+				flag = true;
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-			flag = false;
-			i -= 1;
-			j -= 1;
+			col1 -= 1;
+			row1 -= 1;
 		}
+		flag = false;
 
-		i = y - 1;
-		j = x + 1;
-		// Check up diagonal right on the file
-		while (i >= 0 && j < 8) {
-			if (board[i][j].isOccupied == false && !flag) {
-				legalMoves[i][j] = 1;
-			} else if (board[i][j].isOccupied == true) { // if occupied, it
-															// is a legal
-															// move
-															// (capture)
-				legalMoves[i][j] = 1;
+		row1 = row - 1;
+		col1 = col + 1;
+		// Check up diagonal right
+		while (row1 >= 0 && col1 < 8) {
+			if (!board[row1][col1].isOccupied && !flag) {
+				legalMoves.add(board[row1][col1]);
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color != this.color && !flag) {
+				legalMoves.add(board[row1][col1]);
+				flag = true;
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-			flag = false;
-			i -= 1;
-			j += 1;
+			col1 += 1;
+			row1 -= 1;
 		}
+		flag = false;
 
-		i = y + 1;
-		j = x - 1;
+		row1 = row + 1;
+		col1 = col - 1;
 		// Check down diagonal left on the file
-		while (i < 8 && j >= 0) {
-			if (board[i][j].isOccupied == false && !flag) {
-				legalMoves[i][j] = 1;
-			} else if (board[i][j].isOccupied == true) { // if occupied, it
-															// is a legal
-															// move
-															// (capture)
-				legalMoves[i][j] = 1;
+		while (row1 < 8 && col1 >= 0) {
+			if (!board[row1][col1].isOccupied && !flag) {
+				legalMoves.add(board[row1][col1]);
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color != this.color && !flag) {
+				legalMoves.add(board[row1][col1]);
+				flag = true;
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-			flag = false;
-			i += 1;
-			j -= 1;
+			col1 -= 1;
+			row1 += 1;
 		}
+		flag = false;
 
-		i = y + 1;
-		j = x + 1;
+		row1 = row + 1;
+		col1 = col + 1;
 		// Check down diagonal right on the file
-		while (i < 8 && j < 8) {
-			if (board[i][j].isOccupied == false && !flag) {
-				legalMoves[i][j] = 1;
-			} else if (board[i][j].isOccupied == true) { // if occupied, it
-															// is a legal
-															// move
-															// (capture)
-				legalMoves[i][j] = 1;
+		while (row1 < 8 && col1 < 8) {
+			if (!board[row1][col1].isOccupied && !flag) {
+				legalMoves.add(board[row1][col1]);
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color != this.color && !flag) {
+				legalMoves.add(board[row1][col1]);
+				flag = true;
+			} else if (board[row1][col1].isOccupied && board[row1][col1].piece.color == this.color && !flag) {
 				flag = true;
 			}
-			flag = false;
-			i += 1;
-			j += 1;
-		}
-		return legalMoves;
-	}
+			col1 += 1;
+			row1 += 1;
 
+		}
+		flag = false;
+
+		Tile[] ret = new Tile[legalMoves.size()];
+		System.out.print("arraylist: " + legalMoves.size() + " ");
+		System.out.print("array: " + ret.length + "\n");
+		return legalMoves.toArray(ret);
+	}
 }

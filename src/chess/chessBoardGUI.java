@@ -1,23 +1,30 @@
 package chess;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
-public class chessBoardGUI implements MouseListener {
+public class chessBoardGUI implements MouseListener, ActionListener {
 	
-	private final JFrame chessFrame;
+	private JFrame chessFrame;
 	private JPanel chessPanel;
 	private static Dimension boardDimensions = new Dimension(600,600);
-    private final Color lightTileColor = Color.decode("#efd0a7");
-    private final Color darkTileColor = Color.decode("#bf7007");
-    private final Color testColor = Color.CYAN;
-    private DrawCircle circle = new DrawCircle();
+    private final java.awt.Color lightTileColor = java.awt.Color.decode("#efd0a7");
+    private final java.awt.Color darkTileColor = java.awt.Color.decode("#bf7007");
+    private Border selectedBorder = BorderFactory.createBevelBorder(0, java.awt.Color.green, java.awt.Color.GREEN);
+    private Border availableBorder = BorderFactory.createBevelBorder(0, java.awt.Color.white, java.awt.Color.white);
     private Board board;
-    private String player;
     private Tile selected;
+    private Color playerColor;
+    private Tile[] available;
+    private Player playerWhite;
+    private Player playerBlack;
+    
     
 	public chessBoardGUI(Board board) {
 		this.board = board;
@@ -29,14 +36,15 @@ public class chessBoardGUI implements MouseListener {
 		this.chessFrame.setJMenuBar(menuBar);
 		
 		setUpPanel();
-		this.player = "White";
+		
+		this.playerColor = Color.White;
 		
 		this.chessFrame.add(chessPanel);
 		this.chessPanel.setVisible(true);
 		this.chessFrame.setVisible(true);
 		this.chessFrame.repaint();
 	}
-
+	
 	private void setUpPanel() {
 		this.chessPanel = new JPanel(new GridLayout(8,8));
 		Tile[][] board = this.board.board;
@@ -59,17 +67,30 @@ public class chessBoardGUI implements MouseListener {
 	}
 	
 	private void tryMove(Tile tile) {
-		Tile[] moves = this.selected.piece.getAvailableMoves(this.selected.row, this.selected.col, this.board.board);
+		if (tile.getBorder() == availableBorder) {
+			this.selected.moveTo(tile, board.board);
+			for (int i = 0; i < this.available.length; i++) {
+				if (this.available[i] != null) {
+					this.available[i].setBorder(null);
+				}
+			}
+			this.available = new Tile[8];
+			this.selected = null;
+			this.playerColor = this.playerColor == Color.White ? Color.Black : Color.White;
+		}
 	}
 	
 	private void showAvailableMoves(Tile tile) {
-		Tile[] moves = tile.piece.getAvailableMoves(tile.row, tile.col, this.board.board);
-		for (int i = 0; i < moves.length; i++) {
-			if (moves[i] != null) {
-				if (moves[i].getComponentCount() == 0) {
-					moves[i].add(new JLabel(this.circle));
+		this.available = tile.piece.getAvailableMoves(this.board.board);
+		for (int i = 0; i < this.available.length; i++) {
+			if (this.available[i] != null) {
+				if (this.available[i].getBorder() == null) {
+					if (this.available[i].piece != null) {
+						System.out.println("x: " + this.available[i].row + ", col: " + this.available[i].col);
+					}
+					this.available[i].setBorder(this.availableBorder);
 				} else {
-					moves[i].remove(0);
+					this.available[i].setBorder(null);
 				}
 			}
 		}
@@ -86,30 +107,33 @@ public class chessBoardGUI implements MouseListener {
 	}
 
 	private void populateMenuBar(JMenuBar menuBar) {
-		menuBar.add(createFileMenu());
-		menuBar.add(createOptionsMenu());
-		menuBar.add(createPlayerTurnMenu());
-	}
+		
+		JMenu file = new JMenu("File");
+		
+		JMenuItem restart = new JMenuItem("Restart");
+		restart.addActionListener(this);
+		file.add(restart);
+		
+		JMenuItem classical = new JMenuItem("New Classical");
+		classical.addActionListener(this);
+		file.add(classical);
+		
+		JMenuItem board960 = new JMenuItem("New 960");
+		board960.addActionListener(this);
+		file.add(board960);
 
-	private JMenu createFileMenu() {
-		return new JMenu("File");
-	}
-	
-	private JMenu createOptionsMenu() {
-		return new JMenu("Options");
-	}
-	
-	private JMenu createPlayerTurnMenu() {
-		return new JMenu("Player Turn");
+		menuBar.add(file);
+		menuBar.add(new JMenu("Options"));
+		menuBar.add(new JMenu("Player Turn"));
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Tile tile = (Tile) e.getComponent();
 		if (this.selected == null) {
-			if (tile.isOccupied && tile.piece.color == this.player) {
+			if (tile.isOccupied && tile.piece.color == this.playerColor) {
 				this.selected = tile;
-				tile.setBorder(BorderFactory.createBevelBorder(0, Color.green, Color.GREEN));
+				tile.setBorder(selectedBorder);
 				showAvailableMoves(tile);
 			}
 		} else if (this.selected == tile) {
@@ -143,6 +167,28 @@ public class chessBoardGUI implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String type = e.getActionCommand();
+		chessFrame.dispose();
+		chess960Board b960 = new chess960Board();
+		classicalChessBoard classical = new classicalChessBoard();
+		
+		if (type.equals("New Classical")) {
+			new chessBoardGUI(classical);
+		}
+		if (type.equals("New 960")) {
+			new chessBoardGUI(b960);
+		}
+		if (type.equals("Restart")) {
+			if (this.board.getClass().equals(classical.getClass())) {
+				new chessBoardGUI(classical);
+			} else {
+				new chessBoardGUI(b960);
+			}
+		}
 	}
 	
 	
